@@ -1,0 +1,116 @@
+﻿@inherits FortyFingers.Library.FfRazorViewPageOfT<FortyFingers.DnnMassManipulate.ManipulatorModules.Users.UsersModel>
+@{
+}
+    <div class="dnnForm ffmm-users" id="ffmmUsersForm">
+        <h2>Users</h2>
+        <fieldset>
+            <div class="dnnFormItem">
+                <label class="dnnLabel">Template Type</label>
+                <span>
+                    <input type="radio" name="TemplateType" class="dnnFormInput" value="NUMBER" checked="checked" onchange="templateTypeChanged();" />Numbered
+                    <input type="radio" name="TemplateType" class="dnnFormInput" value="REGEX" onchange="templateTypeChanged();" />Regex (not for generating users)
+                </span>
+            </div>
+            <div class="dnnFormItem">
+                <label class="dnnLabel">Users Template</label>
+                <input type="text" name="UsersInput" class="dnnFormInput" maxlength="100" value="TestUser-[1-10]" />
+            </div>
+            <div class="dnnFormItem">
+                <label class="dnnLabel">Users folders</label>
+                <input type="checkbox" name="UsersFolders" class="dnnFormInput" value="true" />Create folders when generating new users
+            </div>
+        </fieldset>
+        <ul class="dnnActions dnnClear">
+            <li><input type="button" class="dnnPrimaryAction" id="ffmmUsersBtnFind" onclick="findUsers();" value="Find Users"/></li>
+            <li><input type="button" class="dnnPrimaryAction" id="ffmmUsersBtnCreate" onclick="generateUsers();" value="Create Users"/></li>
+            <li><input type="button" class="dnnPrimaryAction" id="ffmmUsersBtnSoftDel" onclick="deleteUsers(false);" value="Mark Users As Deleted"/></li>
+            <li><input type="button" class="dnnPrimaryAction" id="ffmmUsersBtnHardDel" onclick="deleteUsers(true);" value="Remove Users Completely"/></li>
+        </ul>
+        <input type="hidden" name="HardDelete" value="false"/>
+        <section class="ffmm-logging">
+            <h3>Logging:</h3>
+            <div id="ffmmUsersLog"></div>
+        </section>
+    </div>
+<script>
+    var lastType = "NUMBER";
+    function templateTypeChanged() {
+        var newType = $("input[name='TemplateType']:checked").val();
+        if (lastType !== newType) {
+            lastType = newType;
+            if (newType === "NUMBER") {
+                 $("input[name='UsersInput']").val("TestUser-[1-10]");
+                 $("input[name='UsersFolders']").removeAttr("disabled");
+                 $("#ffmmUsersBtnCreate").removeAttr("disabled");
+            }
+            if (newType === "REGEX") {
+                 $("input[name='UsersInput']").val("TestUser-\\d+");
+                 $("input[name='UsersFolders']").attr("disabled", "disabled");
+                 $("#ffmmUsersBtnCreate").attr("disabled", "disabled");
+            }
+        }
+    }
+
+    function findUsers() {
+        var service = FF.getService("40FDMM", "Users", @Model.Context.Module.ModuleID);
+        FF.postForm(service,
+            "FindUsers",
+            "#ffmmUsersForm",
+            function(data) {
+                // onDone
+                //var response = FF.parseJSON(data);
+                $("#ffmmUsersLog").html(data);
+            },
+            function(responseText) {
+                // onFail
+                $("#ffmmUsersLog").html(postData.TabName + " failed with message " + responseText + "<br/>");
+            });
+    }
+
+    function generateUsers() {
+        var service = FF.getService("40FDMM", "Users", @Model.Context.Module.ModuleID);
+        $("#ffmmUsersLog").html("please wait...");
+        var progress = window.setInterval(function() {
+                $("#ffmmUsersLog").append(".");
+            },
+            1000);
+        FF.postForm(service,
+            "GenerateUsers",
+            "#ffmmUsersForm",
+            function(data) {
+                // onDone
+                window.clearInterval(progress);
+                $("#ffmmUsersLog").html(data);
+            },
+            function(responseText) {
+                // onFail
+                window.clearInterval(progress);
+                $("#ffmmUsersLog").html(postData.TabName + " failed with message " + responseText + "<br/>");
+            });
+    }
+
+    function deleteUsers(hardDelete) {
+        $("input[name='HardDelete']").val(hardDelete.toString());
+        var service = FF.getService("40FDMM", "Users", @Model.Context.Module.ModuleID);
+        $("#ffmmUsersLog").html("please wait...");
+        var progress = window.setInterval(function() {
+                $("#ffmmUsersLog").append(".");
+            },
+            1000);
+        FF.postForm(service,
+            "DeleteUsers",
+            "#ffmmUsersForm",
+            function(data) {
+                // onDone
+                window.clearInterval(progress);
+                $("input[name='HardDelete']").val("false");
+                $("#ffmmUsersLog").html(data);
+            },
+            function(responseText) {
+                // onFail
+                window.clearInterval(progress);
+                $("input[name='HardDelete']").val("false");
+                $("#ffmmUsersLog").html(postData.TabName + " failed with message " + responseText + "<br/>");
+            });
+    }
+</script> 

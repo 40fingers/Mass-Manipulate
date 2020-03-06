@@ -155,6 +155,10 @@ FF.getFormFieldsObject = function (containerSelector) {
                 // it's an unchecked checkbox: nothing to do
                 return;
             }
+            if (type === "button") {
+                // it's a button: nothing to do
+                return;
+            }
 
             //$("input:radio[name='choices']:checked").val();
 
