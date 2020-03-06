@@ -2,7 +2,10 @@
 	Please note that this file is generated from /_less/module.less, 
 	Pull requests on module.css only will not de accepted */
 	
+	@bg-color: #eee;
+	
 .ff-mass-manipulate{
+
 	h2{
 		font-size: 1.5em;
 	}
@@ -14,6 +17,19 @@
 		
 		.dnnFormInput{
 		
+		}
+	}
+	
+	.ffmm{
+		&-logging{
+			margin: 1em 0 2em;
+			h3{
+				font-size:1.2em;
+			}
+			> div{
+				background: @bg-color;
+				padding:1em;
+			}
 		}
 	}
 }
