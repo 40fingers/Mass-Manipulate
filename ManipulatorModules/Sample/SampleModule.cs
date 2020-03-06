@@ -16,16 +16,28 @@ namespace FortyFingers.DnnMassManipulate.ManipulatorModules.Sample
     {
         private readonly string ScriptsPath = $"~/DesktopModules/40Fingers/DnnMassManipulate/ManipulatorModules/Sample/";
 
+        /// <summary>
+        /// Return the name of the tab in MassManipulator
+        /// </summary>
+        /// <returns></returns>
         public override string TabName()
         {
             return "Sample";
         }
 
+        /// <summary>
+        /// Return wether or not tab should be visible for Admins (if false: only superusers will see it)
+        /// </summary>
+        /// <returns></returns>
         public override bool AllowAdministrator()
         {
             return true;
         }
 
+        /// <summary>
+        /// Return the HTML for the tab contents.
+        /// </summary>
+        /// <returns></returns>
         public override string GetHtml()
         {
             string msg;
