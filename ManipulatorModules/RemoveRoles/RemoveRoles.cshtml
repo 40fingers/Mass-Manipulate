@@ -1,0 +1,38 @@
+﻿@inherits FortyFingers.Library.FfRazorViewPageOfT<FortyFingers.DnnMassManipulate.ManipulatorModules.RemoveRoles.RemoveRolesModel>
+@{
+}
+<div class="dnnForm" id="ffmmRemoveRolesForm">
+    <h2>Find / Remove Roles</h2>
+    <fieldset>
+        <div class="dnnFormItem">
+            <label class="dnnFormLabel">Roles template</label>
+            <input type="text" name="RolesRegex" class="dnnFormInput" maxlength="100" value="TestRole.*" />
+        </div>
+    </fieldset>
+    <ul class="dnnActions dnnClear">
+        <li><input type="button" class="dnnSecondaryAction" onclick="doRemoveRoles(false);" value="Find Roles" /></li>
+        <li><input type="button" class="dnnPrimaryAction" onclick="doRemoveRoles(true);" value="Remove Roles" /></li>
+    </ul>
+    <div id="ffmmRemoveRolesLog"></div>
+</div>
+<script>
+    function doRemoveRoles(doRemove) {
+        $("#ffmmRemoveRolesLog").html("");
+        var service = FF.getService("40FDMM", "RemoveRoles", @Model.Context.Module.ModuleID);
+        var postData = {};
+        postData.RolesRegex = $("#ffmmRemoveRolesForm input[name=RolesRegex]").val();
+        postData.DoRemove = doRemove;
+        FF.postFormFieldsObject(service,
+            "Do",
+            postData,
+            function(data) {
+                // onDone
+                var response = FF.parseJSON(data);
+                $("#ffmmRemoveRolesLog").append(response.message);
+            },
+            function(responseText) {
+                // onFail
+                $("#ffmmRemoveRolesLog").append(postData.TabName + " failed with message " + responseText + "<br/>");
+            });
+    }
+</script>

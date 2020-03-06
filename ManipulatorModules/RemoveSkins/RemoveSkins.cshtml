@@ -1,0 +1,23 @@
+﻿@inherits FortyFingers.Library.FfRazorViewPageOfT<FortyFingers.DnnMassManipulate.ManipulatorModules.RemoveSkins.RemoveSkinsModel>
+@{
+}
+<div class="dnnForm" id="ffmmRemoveSkinsForm">
+    <h2>RemoveSkins</h2>
+    <table>
+        <tr class="dnnGridHeader">
+            <th>Portal</th>
+            <th>Skin</th>
+            <th>Containers</th>
+        </tr>
+        @foreach(var skin in Model.Skins)
+        {
+        <tr class="dnnGridItem">
+            <td>@skin.PortalHomeFolder</td>
+            <td>@skin.Name</td>
+            <td>@(skin.HasContainers ? "Yes" : "No")</td>
+        </tr>
+        }
+    </table>
+</div>
+<script>
+</script>

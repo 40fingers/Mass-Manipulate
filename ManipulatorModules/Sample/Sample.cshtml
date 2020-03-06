@@ -1,0 +1,36 @@
+﻿@inherits FortyFingers.Library.FfRazorViewPageOfT<FortyFingers.DnnMassManipulate.ManipulatorModules.Sample.SampleModel>
+@{
+}
+<div class="dnnForm" id="ffmmSampleForm">
+    <h2>Sample</h2>
+    <fieldset>
+        <div class="dnnFormItem">
+            <label class="dnnFormLabel">Input</label>
+            <input type="text" name="SampleInput" class="dnnFormInput" maxlength="100" value="" />
+        </div>
+    </fieldset>
+    <ul class="dnnActions dnnClear">
+        <li><input type="button" class="dnnPrimaryAction" onclick="doSample();" value="Do Sample" /></li>
+    </ul>
+    <div id="ffmmSampleLog"></div>
+</div>
+<script>
+    function doSample(service) {
+        var service = FF.getService("40FDMM", "Sample", @Model.Context.Module.ModuleID);
+        var postData = {};
+        postData.SampleInput = $("#ffmmSampleForm input[name=SampleInput]").val();
+
+        FF.postFormFieldsObject(service,
+            "Do",
+            postData,
+            function(data) {
+                // onDone
+                var response = FF.parseJSON(data);
+                $("#ffmmSampleLog").append(data);
+            },
+            function(responseText) {
+                // onFail
+                $("#ffmmSampleLog").append(postData.TabName + " failed with message " + responseText + "<br/>");
+            });
+    }
+</script>

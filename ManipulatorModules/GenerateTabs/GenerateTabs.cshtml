@@ -1,0 +1,106 @@
+﻿@inherits FortyFingers.Library.FfRazorViewPageOfT<FortyFingers.DnnMassManipulate.ManipulatorModules.GenerateTabs.GenerateTabsModel>
+@{
+}
+<div class="dnnForm" id="ffmmGenerateTabsForm">
+    <h2>Generate Tabs</h2>
+    <fieldset>
+        <div class="dnnFormItem">
+            <label class="dnnFormLabel">Indent Character</label>
+            <input type="text" name="IndentCharacter" class="dnnFormInput" maxlength="1" value=">" />
+        </div>
+        <div class="dnnFormItem">
+            <label class="dnnFormLabel">Parent page</label>
+            <select name="ParentTabId" class="dnnFormInput">
+                @foreach (var tab in Model.Tabs)
+                {
+                    <option value="@tab.TabID">@tab.IndentedTabName</option>
+                }
+            </select>
+        </div>
+        <div class="dnnFormItem">
+            <label class="dnnFormLabel">Page Tree</label>
+            <textarea name="PageTree" rows="2" cols="20" style="height:500px;width:500px;" class="dnnFormInput"></textarea>
+        </div>
+    </fieldset>
+    <ul class="dnnActions dnnClear">
+        <li><input type="button" class="dnnPrimaryAction" onclick="doGenerateTabsOneByOne();" value="Generate Pages" /></li>
+    </ul>
+    <div id="ffmmGenerateTabsLog"></div>
+</div>
+<script>
+    function doGenerateTabs() {
+        var service = FF.getService("40FDMM", "GenerateTabs", @Model.Context.Module.ModuleID);
+        FF.postForm(service,
+            "Do",
+            "#ffmmGenerateTabsForm",
+            function(data) {
+                // onDone
+                alert("done");
+            },
+            function(responseText) {
+                // onFail
+                alert("failed");
+            });
+    }
+
+    function doGenerateTabsOneByOne() {
+        var service = FF.getService("40FDMM", "GenerateTabs", @Model.Context.Module.ModuleID);
+
+        var allTabs = $("#ffmmGenerateTabsForm textarea[name=PageTree]").val().split("\n");
+        if (allTabs.length > 0) {
+            if (allTabs[0].substr(0, 1) === $("#ffmmGenerateTabsForm input[name=IndentCharacter]").val()) {
+                $("#ffmmGenerateTabsLog").append("First page can't start with the indent character<br/>");
+            }
+            validatePageTree(function() {
+                    doGenerateOneTab(service, 0, allTabs, 0);
+                },
+                function(msg) {
+                    $("#ffmmGenerateTabsLog").append("PageTree no valid: " + msg + "<br/>");
+                });
+        }
+    }
+
+    function validatePageTree(onValid, onInvalid) {
+        var service = FF.getService("40FDMM", "GenerateTabs", @Model.Context.Module.ModuleID);
+        FF.postForm(service,
+            "ValidatePageTree",
+            "#ffmmGenerateTabsForm",
+            function(data) {
+                // onDone
+                onValid();
+            },
+            function(responseText) {
+                // onFail
+                onInvalid(responseText);
+            });
+    }
+
+    function doGenerateOneTab(service, previousTabId, allTabNames, currentIndex) {
+        var postData = {};
+        postData.IndentCharacter = $("#ffmmGenerateTabsForm input[name=IndentCharacter]").val();
+        postData.ParentTabId = $("#ffmmGenerateTabsForm select[name=ParentTabId]").val();
+        postData.PreviousTabId = previousTabId;
+        if (currentIndex > 0) {
+            postData.PreviousTabName = allTabNames[currentIndex - 1];
+        } else {
+            postData.PreviousTabName = "";
+        }
+        postData.TabName = allTabNames[currentIndex];
+
+        FF.postFormFieldsObject(service,
+            "DoOne",
+            postData,
+            function(data) {
+                // onDone
+                var response = FF.parseJSON(data);
+                $("#ffmmGenerateTabsLog").append(postData.TabName + " created with TabId " + response.TabId.toString() + "<br/>");
+                if (allTabNames.length > currentIndex + 1 && allTabNames[currentIndex + 1] !== "") {
+                    doGenerateOneTab(service, response.TabId, allTabNames, currentIndex + 1);
+                }
+            },
+            function(responseText) {
+                // onFail
+                $("#ffmmGenerateTabsLog").append(postData.TabName + " failed with message " + responseText + "<br/>");
+            });
+    }
+</script>

@@ -1,0 +1,44 @@
+﻿@inherits FortyFingers.Library.FfRazorViewPageOfT<FortyFingers.DnnMassManipulate.ManipulatorModules.CopyPagePermissions.CopyPagePermissionsModel>
+@{
+}
+<div class="dnnForm" id="ffmmCopyPagePermissionsForm">
+    <h2>Find / Copy Page Permissions from one role to another</h2>
+    <fieldset>
+        <div class="dnnFormItem">
+            <label class="dnnFormLabel">From role</label>
+            <input type="text" name="FromRole" class="dnnFormInput" maxlength="100" value="TestRole.*" />
+        </div>
+        <div class="dnnFormItem">
+            <label class="dnnFormLabel">Copy to role</label>
+            <input type="text" name="ToRole" class="dnnFormInput" maxlength="100" value="TestRole.*" />
+        </div>
+    </fieldset>
+    <ul class="dnnActions dnnClear">
+        <li><input type="button" class="dnnSecondaryAction" onclick="doCopyPagePermissions(false);" value="List Permissions" /></li>
+        <li><input type="button" class="dnnPrimaryAction" onclick="doCopyPagePermissions(true);" value="Copy permissions" /></li>
+    </ul>
+    <div id="ffmmCopyPagePermissionsLog"></div>
+</div>
+
+<script>
+    function doCopyPagePermissions(doCopy) {
+        $("#ffmmCopyPagePermissionsLog").html("");
+        var service = FF.getService("40FDMM", "CopyPagePermissions", @Model.Context.Module.ModuleID);
+        var postData = {};
+        postData.FromRole = $("#ffmmCopyPagePermissionsForm input[name=FromRole]").val();
+        postData.ToRole = $("#ffmmCopyPagePermissionsForm input[name=ToRole]").val();
+        postData.DoCopy = doCopy;
+        FF.postFormFieldsObject(service,
+            "Do",
+            postData,
+            function(data) {
+                // onDone
+                var response = FF.parseJSON(data);
+                $("#ffmmCopyPagePermissionsLog").append(response.message);
+            },
+            function(responseText) {
+                // onFail
+                $("#ffmmCopyPagePermissionsLog").append(postData.TabName + " failed with message " + responseText + "<br/>");
+            });
+    }
+</script>

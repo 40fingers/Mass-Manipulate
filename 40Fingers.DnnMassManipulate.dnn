@@ -1,0 +1,83 @@
+﻿<dotnetnuke type="Package" version="5.0">
+  <packages><package name="40Fingers.DnnMassManipulate" type="Module" version="00.00.00">
+  <friendlyName>40Fingers DnnMassManipulate</friendlyName>
+  <description>
+	<![CDATA[
+	<b>40FINGERS DotNetNuke Module: DnnMassManipulate</b>
+	<ul>
+		<li>Feature 1.
+		</li>
+		<li>Feature 2.
+		</li>
+		<li>
+		And much more...
+		</li>
+	</ul>
+  ]]>
+  </description>
+  <owner>
+	<name>40Fingers</name>
+	<organization>40Fingers</organization>
+	<url>http://www.40fingers.net</url>
+	<email>info@40fingers.net</email>
+  </owner>
+	<dependencies>
+		<dependency type="CoreVersion">08.00.04</dependency>
+	</dependencies>
+  <license src="License.htm" />
+  <releaseNotes src="releaseNotes.htm" />
+  <components>
+    <component type="Module">
+      <desktopModule>
+        <moduleName>40Fingers.DnnMassManipulate</moduleName>
+        <foldername>40Fingers\DnnMassManipulate</foldername>
+        <businessControllerClass />
+        <supportedFeatures />
+        <moduleDefinitions>
+          <moduleDefinition>
+            <friendlyName>40Fingers DnnMassManipulate</friendlyName>
+            <defaultCacheTime>0</defaultCacheTime>
+            <moduleControls>
+              <moduleControl>
+                <controlKey />
+                <controlSrc>DesktopModules/40Fingers/DnnMassManipulate/View.ascx</controlSrc>
+                <supportsPartialRendering>False</supportsPartialRendering>
+                <controlTitle />
+                <controlType>View</controlType>
+                <iconFile />
+                <helpUrl />
+                <viewOrder>0</viewOrder>
+              </moduleControl>
+              <moduleControl>
+                <controlKey>Settings</controlKey>
+                <controlSrc>DesktopModules/40Fingers/DnnMassManipulate/Settings.ascx</controlSrc>
+                <supportsPartialRendering>True</supportsPartialRendering>
+                <controlTitle>DnnMassManipulate Settings</controlTitle>
+                <controlType>Admin</controlType>
+                <iconFile />
+                <helpUrl />
+              </moduleControl>
+            </moduleControls>
+          </moduleDefinition>
+        </moduleDefinitions>
+      </desktopModule>
+    </component>
+    <component type="Assembly">
+      <assemblies>
+        <basePath>bin</basePath>
+        <assembly>
+          <name>40Fingers.DNN.Modules.DnnMassManipulate.dll</name>
+        </assembly>
+      </assemblies>
+    </component>
+    <component type="ResourceFile">
+      <resourceFiles>
+        <basePath>DesktopModules\40Fingers\DnnMassManipulate</basePath>
+        <resourceFile>
+          <name>Resources.zip</name>
+        </resourceFile>
+      </resourceFiles>
+    </component>
+  </components>
+</package></packages>
+</dotnetnuke>

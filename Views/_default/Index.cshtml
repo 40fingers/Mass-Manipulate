@@ -1,0 +1,25 @@
+﻿@inherits FortyFingers.Library.FfRazorViewPageOfT<FortyFingers.DnnMassManipulate.ModulesModel>
+@{
+}
+<script type="text/javascript">
+    jQuery(function ($) {
+        $('#dnnFfmmTabs').dnnTabs();
+    });
+</script>
+<div class="dnnForm" id="dnnFfmmTabs">
+    <ul class="dnnAdminTabNav">
+        @foreach (var module in Model.Modules)
+        {
+            <li><a href="#@(module.JsName)">@module.TabName()</a></li>
+        }
+    </ul>
+    @foreach (var module in Model.Modules)
+    {
+        <div id="@(module.JsName)" class="dnnClear">
+            <div>
+                @Html.Raw(module.GetHtml())
+            </div>
+            <div>From assembly: @module.Assembly</div>
+        </div>
+    }
+</div>
