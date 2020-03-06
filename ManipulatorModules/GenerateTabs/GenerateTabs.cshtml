@@ -5,11 +5,11 @@
     <h2>Generate Tabs</h2>
     <fieldset>
         <div class="dnnFormItem">
-            <label class="dnnFormLabel">Indent Character</label>
+            <label class="dnnLabel">Indent Character</label>
             <input type="text" name="IndentCharacter" class="dnnFormInput" maxlength="1" value=">" />
         </div>
         <div class="dnnFormItem">
-            <label class="dnnFormLabel">Parent page</label>
+            <label class="dnnLabel">Parent page</label>
             <select name="ParentTabId" class="dnnFormInput">
                 @foreach (var tab in Model.Tabs)
                 {
@@ -18,7 +18,7 @@
             </select>
         </div>
         <div class="dnnFormItem">
-            <label class="dnnFormLabel">Page Tree</label>
+            <label class="dnnLabel">Page Tree</label>
             <textarea name="PageTree" rows="2" cols="20" style="height:500px;width:500px;" class="dnnFormInput"></textarea>
         </div>
     </fieldset>
