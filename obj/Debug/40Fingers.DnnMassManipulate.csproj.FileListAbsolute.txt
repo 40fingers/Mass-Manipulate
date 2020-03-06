@@ -1,0 +1,6 @@
+D:\Websites\demo.40fingers.net.local\files\DesktopModules\40fingers\DnnMassManipulate\bin\40Fingers.DNN.Modules.DnnMassManipulate.dll.config
+D:\Websites\demo.40fingers.net.local\files\DesktopModules\40fingers\DnnMassManipulate\bin\40Fingers.DNN.Modules.DnnMassManipulate.xml
+D:\Websites\demo.40fingers.net.local\files\DesktopModules\40fingers\DnnMassManipulate\bin\40Fingers.DNN.Modules.DnnMassManipulate.dll
+D:\Websites\demo.40fingers.net.local\files\DesktopModules\40fingers\DnnMassManipulate\bin\40Fingers.DNN.Modules.DnnMassManipulate.pdb
+D:\Websites\demo.40fingers.net.local\files\DesktopModules\40fingers\DnnMassManipulate\obj\Debug\40Fingers.DNN.Modules.DnnMassManipulate.dll
+D:\Websites\demo.40fingers.net.local\files\DesktopModules\40fingers\DnnMassManipulate\obj\Debug\40Fingers.DNN.Modules.DnnMassManipulate.pdb

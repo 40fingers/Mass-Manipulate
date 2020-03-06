@@ -23,7 +23,8 @@ namespace FortyFingers.DnnMassManipulate.Services
         [HttpPost]
         public HttpResponseMessage Do(SamplePostModel model)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, new { });
+            string ret = $"Your Input: \"{model.SampleInput}\"";
+            return Request.CreateResponse(HttpStatusCode.OK, ret);
         }
 
     }

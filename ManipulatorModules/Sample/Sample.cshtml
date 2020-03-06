@@ -30,8 +30,7 @@
             postData,
             function(data) {
                 // onDone
-                var response = FF.parseJSON(data);
-                $("#ffmmSampleLog").append(data);
+                $("#ffmmSampleLog").html(data);
             },
             function(responseText) {
                 // onFail
