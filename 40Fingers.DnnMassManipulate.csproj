@@ -150,6 +150,9 @@
     <Compile Include="ManipulatorModules\GenerateRoles\GenerateRolesController.cs" />
     <Compile Include="ManipulatorModules\GenerateRoles\GenerateRolesModel.cs" />
     <Compile Include="ManipulatorModules\GenerateRoles\GenerateRolesModule.cs" />
+    <Compile Include="ManipulatorModules\Users\UsersController.cs" />
+    <Compile Include="ManipulatorModules\Users\UsersModel.cs" />
+    <Compile Include="ManipulatorModules\Users\UsersModule.cs" />
     <Compile Include="ManipulatorModules\Sample\SampleController.cs" />
     <Compile Include="ManipulatorModules\Sample\SampleModel.cs" />
     <Compile Include="ManipulatorModules\Sample\SampleModule.cs" />
@@ -217,6 +220,7 @@
     <Content Include="ManipulatorModules\GenerateRoles\GenerateRoles.cshtml" />
     <Content Include="ManipulatorModules\RemoveRoles\RemoveRoles.cshtml" />
     <Content Include="ManipulatorModules\CopyPagePermissions\CopyPagePermissions.cshtml" />
+    <Content Include="ManipulatorModules\Users\Users.cshtml" />
     <None Include="msbuild\Project.targets" />
     <None Include="packages.config" />
     <Content Include="Views\_default\Index.cshtml" />
