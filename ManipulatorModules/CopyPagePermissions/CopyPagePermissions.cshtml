@@ -1,7 +1,7 @@
 ﻿@inherits FortyFingers.Library.FfRazorViewPageOfT<FortyFingers.DnnMassManipulate.ManipulatorModules.CopyPagePermissions.CopyPagePermissionsModel>
 @{
 }
-<div class="dnnForm" id="ffmmCopyPagePermissionsForm">
+<div class="dnnForm ffmm-page-permissions" id="ffmmCopyPagePermissionsForm">
     <h2>Find / Copy Page Permissions from one role to another</h2>
     <fieldset>
         <div class="dnnFormItem">
@@ -17,7 +17,12 @@
         <li><input type="button" class="dnnSecondaryAction" onclick="doCopyPagePermissions(false);" value="List Permissions" /></li>
         <li><input type="button" class="dnnPrimaryAction" onclick="doCopyPagePermissions(true);" value="Copy permissions" /></li>
     </ul>
-    <div id="ffmmCopyPagePermissionsLog"></div>
+	
+	<section class="ffmm-logging">
+		<h3>Logging:</h3>
+		<div id="ffmmCopyPagePermissionsLog"></div>
+	</section>
+	
 </div>
 
 <script>
