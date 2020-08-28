@@ -61,6 +61,44 @@ namespace FortyFingers.DnnMassManipulate.Services
 
             return Request.CreateResponse(HttpStatusCode.OK, retval);
         }
+        [AllowAnonymous]
+        [HttpPost]
+        public HttpResponseMessage FindUsersDeleted(UsersPostModel model)
+        {
+            var retval = "";
+
+            if (model.TemplateType == "REGEX")
+            {
+                retval = HandleUsersRegex(model.UsersInput, "FindDeleted", 50000);
+                return Request.CreateResponse(HttpStatusCode.OK, retval);
+            }
+
+            var range = new Range(model.UsersInput, "");
+
+            if (range.FromValue >= 0)
+            {
+                var sNumber = range.GetRangeFormat(0, 3);
+                for (int i = range.FromValue; i < range.ToValue; i++)
+                {
+                    var username = String.Format(range.RestString + sNumber, i);
+                    var status = UserExists(username);
+
+                    switch (status)
+                    {
+                        case -1:
+                            break;
+                        case 0:
+                            retval += $"User: <del>{username}</del><br/>";
+                            break;
+                        case 1:
+                            //retval += $"User: {username}<br/>";
+                            break;
+                    }
+                }
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, retval);
+        }
 
         [AllowAnonymous]
         [HttpPost]
@@ -230,6 +268,14 @@ namespace FortyFingers.DnnMassManipulate.Services
                         case "Find":
                             {
                                 sOut += oUser.IsDeleted ? $"User: <del>{oUser.Username}</del><br/>" : $"User: {oUser.Username}<br/>";
+
+                                int_HandledRecords += 1;
+                                break;
+                            }
+
+                        case "FindDeleted":
+                            {
+                                sOut += oUser.IsDeleted ? $"User: <del>{oUser.Username}</del><br/>" : $"";
 
                                 int_HandledRecords += 1;
                                 break;
