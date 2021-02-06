@@ -22,6 +22,7 @@
         </fieldset>
         <ul class="dnnActions dnnClear">
             <li><input type="button" class="dnnPrimaryAction" id="ffmmUsersBtnFind" onclick="findUsers();" value="Find Users"/></li>
+            <li><input type="button" class="dnnPrimaryAction" id="ffmmUsersBtnFindDeleted" onclick="findDeletedUsers();" value="Find Deleted Users"/></li>
             <li><input type="button" class="dnnPrimaryAction" id="ffmmUsersBtnCreate" onclick="generateUsers();" value="Create Users"/></li>
             <li><input type="button" class="dnnPrimaryAction" id="ffmmUsersBtnSoftDel" onclick="deleteUsers(false);" value="Mark Users As Deleted"/></li>
             <li><input type="button" class="dnnPrimaryAction" id="ffmmUsersBtnHardDel" onclick="deleteUsers(true);" value="Remove Users Completely"/></li>
@@ -55,6 +56,22 @@
         var service = FF.getService("40FDMM", "Users", @Model.Context.Module.ModuleID);
         FF.postForm(service,
             "FindUsers",
+            "#ffmmUsersForm",
+            function(data) {
+                // onDone
+                //var response = FF.parseJSON(data);
+                $("#ffmmUsersLog").html(data);
+            },
+            function(responseText) {
+                // onFail
+                $("#ffmmUsersLog").html(postData.TabName + " failed with message " + responseText + "<br/>");
+            });
+    }
+
+    function findDeletedUsers() {
+        var service = FF.getService("40FDMM", "Users", @Model.Context.Module.ModuleID);
+        FF.postForm(service,
+            "FindUsersDeleted",
             "#ffmmUsersForm",
             function(data) {
                 // onDone
