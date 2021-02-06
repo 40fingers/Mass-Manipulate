@@ -212,7 +212,7 @@ namespace FortyFingers.DnnMassManipulate.Services
                             {
                                 var sUpdateSql = model.SqlUpdate;
 
-                                if (model.SqlUpdate.ToLower().Contains("select"))
+                                if (model.SqlUpdate.ToLower().Contains("update"))
                                 {
 
                                     // Get the update statement

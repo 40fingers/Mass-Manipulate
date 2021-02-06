@@ -46,6 +46,8 @@ namespace FortyFingers.DnnMassManipulate.ManipulatorModules.DbReplace
             string retval;
             var model = new DbReplaceModel();
             model.Context = Context;
+            model.Help = Localization.GetString("Help.Html",
+                "~\\DesktopModules\\40Fingers\\DnnMassManipulate\\ManipulatorModules\\DbReplace\\App_LocalResources\\DbReplace.resx");
 
             foreach (ConnectionStringSettings cs in ConfigurationManager.ConnectionStrings)
             {

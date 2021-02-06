@@ -14,6 +14,7 @@ namespace FortyFingers.DnnMassManipulate.ManipulatorModules.DbReplace
         }
         public ContextHelper Context { get; set; }
         public List<KeyValuePair<string, string>> ConnectionStrings { get; set; } = new List<KeyValuePair<string, string>>();
+        public string Help { get; set; }
     }
 
     public class DbReplacePostModel
