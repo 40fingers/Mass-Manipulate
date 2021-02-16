@@ -158,6 +158,8 @@ WHERE
 &lt;h6&gt;All Portals&lt;/h6&gt;
 &lt;p&gt;Check to replace for all portals, uncheck to only do the current portal&lt;/p&gt;
 &lt;h6&gt;Case sensitive&lt;/h6&gt; 
-&lt;p&gt;Check to make the search case sensitive&lt;/p&gt;</value>
+&lt;p&gt;Check to make the search case sensitive&lt;/p&gt;
+&lt;h3&gt;Show/Load Json&lt;/h3&gt;
+&lt;p&gt;Using the "Show Json" button will give you a JSON string of your current configuration. If you save this JSON (yourself, this modules doesn't do it for you), you can use the Load Json function later on to quickly reuse that same configuration.&lt;/p&gt;</value>
   </data>
 </root>
