@@ -25,6 +25,8 @@ namespace FortyFingers.DnnMassManipulate.Services
 {
     public class DbReplaceController : DnnApiController
     {
+        #region API Methods
+
         [AllowAnonymous]
         [HttpPost]
         public HttpResponseMessage DoReplace(DbReplacePostModel model)
@@ -53,6 +55,8 @@ namespace FortyFingers.DnnMassManipulate.Services
             var retval = SqlModulesReplace(model, ModuleReplaceMode.GetScript);
             return Request.CreateResponse(HttpStatusCode.OK, retval);
         }
+
+        #endregion
 
 
         private Hashtable GetSqlModules(DbReplacePostModel model)
@@ -189,7 +193,9 @@ namespace FortyFingers.DnnMassManipulate.Services
                             {
                                 var sUpdateSql = model.SqlUpdate;
 
-                                if (model.SqlUpdate.ToLower().Contains("select"))
+                                if (model.SqlUpdate.Trim().ToLower().StartsWith("select"))
+                                    sOut.AppendLine("Invalid Update SQL <br />");
+                                else
                                 {
                                     // Get the update statement
                                     sUpdateSql = GetUpdateSql(sUpdateSql, sNewText, oMod.ContentId);
@@ -204,8 +210,6 @@ namespace FortyFingers.DnnMassManipulate.Services
                                     else
                                         sOut.AppendLine("Errors SQL update <br />");
                                 }
-                                else
-                                    sOut.AppendLine("Invalid Update SQL <br />");
                                 break;
                             }
                         case ModuleReplaceMode.GetScript:
