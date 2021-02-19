@@ -173,7 +173,7 @@ namespace FortyFingers.DnnMassManipulate.Services
                                 {
                                     sNewText = sNewText.Replace("[*]", "<br />");
 
-                                    sOut.AppendLine(string.Format("<h4>Module: <a href=\"{3}/Default.aspx?Tabid={0}&articleType=ArticleView&articleId={1}\" target=\"_blank\">{2}</a></h4><pre>{4}</pre>", oMod.TabId, oMod.DetailId, oMod.Title, sPortal, sNewText));
+                                    sOut.AppendLine(string.Format("<h4>Module: <a href=\"{3}/Default.aspx?Tabid={0}#{1}\" target=\"_blank\">{2}</a></h4><pre>{4}</pre>", oMod.TabId, oMod.ModuleId, oMod.Title, sPortal, sNewText));
 
                                     iReplaced += 1;
                                 }
@@ -183,7 +183,7 @@ namespace FortyFingers.DnnMassManipulate.Services
 
                         case ModuleReplaceMode.ReplaceTest:
                             {
-                                sOut.AppendLine(string.Format("<div><h4>Module: <a href=\"{3}/Default.aspx?Tabid={0}&articleType=ArticleView&articleId={1}\" target=\"_blank\">{2}</a></h4><pre>{4}</pre><pre class=\"New\">{5}</pre></div><hr />", oMod.TabId, oMod.DetailId, oMod.Title, sPortal, oMod.Text, sNewText));
+                                sOut.AppendLine(string.Format("<div><h4>Module: <a href=\"{3}/Default.aspx?Tabid={0}#{1}\" target=\"_blank\">{2}</a></h4><pre>{4}</pre><pre class=\"New\">{5}</pre></div><hr />", oMod.TabId, oMod.ModuleId, oMod.Title, sPortal, oMod.Text, sNewText));
 
                                 iReplaced += 1;
                                 break;
@@ -203,7 +203,7 @@ namespace FortyFingers.DnnMassManipulate.Services
                                     // Update
                                     if (ModuleSqlReplaceSave(GetConnectionString(model), sUpdateSql))
                                     {
-                                        sOut.AppendLine(string.Format("<div><a href=\"/Default.aspx?Tabid={0}&articleType=ArticleView&articleId={1}\" target=\"_blank\">{2}</a></div>", oMod.TabId, oMod.ContentId, oMod.Title));
+                                        sOut.AppendLine(string.Format("<div><a href=\"/Default.aspx?Tabid={0}#{1}\" target=\"_blank\">{2}</a></div>", oMod.TabId, oMod.ModuleId, oMod.Title));
 
                                         iReplaced += 1;
                                     }
