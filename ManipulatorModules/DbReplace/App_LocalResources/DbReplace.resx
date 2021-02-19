@@ -126,18 +126,20 @@
 &lt;h6&gt;SQL SELECT Statement&lt;/h6&gt;
 &lt;p&gt;Write the SELECT statement to get the texts to perform a replace on, from your database. It needs to output several fixed column names:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;ContentId&lt;/strong&gt;: The (INT) Id field of the record&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ContentText&lt;/strong&gt;: The text field of the record containing the text for search/replace&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ContentTitle&lt;/strong&gt;: The title field of the record, for display only&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;PortalId&lt;/strong&gt;: The (INT) PortalId field of the record&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;TabId&lt;/strong&gt;: The (INT) TabId field of the record&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ModuleId&lt;/strong&gt;: The (INT) ModuleId field of the record&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;DetailId&lt;/strong&gt;: The (INT) DetailId field of the record&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PortalId&lt;/strong&gt;: The (INT) PortalId the Portal&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;TabId&lt;/strong&gt;: The (INT) TabId the Tab (used to generate a link to the Page)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ModuleId&lt;/strong&gt;: The (INT) ModuleId field of Module&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ContentId&lt;/strong&gt;: The (INT) Id field of the record to Change&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ContentSubId&lt;/strong&gt;: Optional &gt; The (INT) Id of an field that has subrecords (like Multiple Pages)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ContentText&lt;/strong&gt;: A Text field of the record containing the text for search/replace&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ContentTitle&lt;/strong&gt;: A Title field of the record, for display only&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Example:&lt;/p&gt;
 &lt;p&gt;&lt;pre&gt;
 SELECT
-    PortalId, ModuleId,
+    PortalId, 
+    TabId, 
+	ModuleId,
     x AS ContentId,
     y AS ContentText,
     z AS ContentTitle
@@ -149,15 +151,16 @@ FROM
 &lt;p&gt;Example:&lt;/p&gt;
 &lt;p&gt;&lt;pre&gt;
 UPDATE MyCustomTable SET
-    y = '[newtext]'
+    y = '[NewText]'
 WHERE
   x = [ContentId]
 &lt;/pre&gt;&lt;/p&gt;
 &lt;h6&gt;Search/Replace pairs (1-3)&lt;/h6&gt;
-&lt;p&gt;search an replace values&lt;/p&gt;
+&lt;p&gt;Search an replace values (in th eorder 1-3). &lt;br&gt;
+These are &lt;a href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expressions"&gt;Regular Expression&lt;/a&gt; based.&lt;/p&gt;
 &lt;h6&gt;All Portals&lt;/h6&gt;
-&lt;p&gt;Check to replace for all portals, uncheck to only do the current portal&lt;/p&gt;
-&lt;h6&gt;Case sensitive&lt;/h6&gt; 
+&lt;p&gt;Check to replace for all portals, uncheck to only do the current Portal&lt;/p&gt;
+&lt;h6&gt;Case Sensitive&lt;/h6&gt; 
 &lt;p&gt;Check to make the search case sensitive&lt;/p&gt;
 &lt;h3&gt;Show/Load Json&lt;/h3&gt;
 &lt;p&gt;Using the "Show Json" button will give you a JSON string of your current configuration. If you save this JSON (yourself, this modules doesn't do it for you), you can use the Load Json function later on to quickly reuse that same configuration.&lt;/p&gt;</value>
