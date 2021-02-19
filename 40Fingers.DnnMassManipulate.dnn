@@ -3,8 +3,8 @@
   <friendlyName>40Fingers DnnMassManipulate</friendlyName>
   <description>
 	<![CDATA[
-	<h4>40FINGERS DotNetNuke Module: DnnMassManipulate</h4>
-	<p>A Module to manipulate your DNN installation<p>
+	<h4>40FINGERS DNN Module: DnnMassManipulate</h4>
+	<p>A Module to bulk-manipulate your DNN installation.<p>
 	<p><strong>Make a backup before every occasion you use this module!</strong><p>
   ]]>
   </description>
