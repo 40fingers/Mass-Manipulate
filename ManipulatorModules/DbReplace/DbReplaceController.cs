@@ -90,7 +90,7 @@ namespace FortyFingers.DnnMassManipulate.Services
                                 PortalId = CheckDbValueInteger(reader, "PortalId", PortalSettings.PortalId),
                                 TabId = CheckDbValueInteger(reader, "TabId", -1),
                                 ModuleId = CheckDbValueInteger(reader, "ModuleId", -1),
-                                DetailId = CheckDbValueInteger(reader, "DetailId", -1),
+                                ContentSubId = CheckDbValueInteger(reader, "ContentSubId", -1),
                                 ContentId = (int)reader["ContentId"],
                                 Text = reader["ContentText"].ToString(),
                                 Title = reader["ContentTitle"].ToString()
@@ -413,7 +413,7 @@ namespace FortyFingers.DnnMassManipulate.Services
             // Module id
             public int ModuleId { get; set; }
             // Detail id if the module contains articles
-            public int DetailId { get; set; }
+            public int ContentSubId { get; set; }
             // Unique ID for the content
             public int ContentId { get; set; }
             // Found text
