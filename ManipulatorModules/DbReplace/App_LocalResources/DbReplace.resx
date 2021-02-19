@@ -119,7 +119,6 @@
   </resheader>
   <data name="Help.Html" xml:space="preserve">
     <value>&lt;h2&gt;Help for DbReplace&lt;/h2&gt;
-&lt;div class="dnnFormMessage dnnFormValidationSummary"&gt;This module allows you to completely wreck your site, if you don't know what you're doing.&lt;/div&gt;
 &lt;p&gt;This Manipulator Module allows you to perform text replaces in the database by specififying SQL statements and using regular expressions&lt;/p&gt;
 &lt;h6&gt;Connection string&lt;/h6&gt;
 &lt;p&gt;Select the connection string to use&lt;/p&gt;
