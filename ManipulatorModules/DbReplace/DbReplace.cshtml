@@ -8,15 +8,16 @@
             @Html.Raw(Model.Help)
         </div>
     </fieldset>
-    <h2 class="dnnFormSectionHead"><a href="#">Load Json</a></h2>
+    <h2 class="dnnFormSectionHead"><a href="#">Json import/export</a></h2>
     <fieldset class="dnnClear">
         <div class="dnnFormItem">
-            <label class="dnnLabel">JSON to load</label>
+            <label class="dnnLabel">JSON text</label>
             <textarea type="text" name="LoadJson" style="height:200px;width:500px;" class="dnnFormInput"></textarea>
         </div>
         <div class="dnnFormItem">
             <ul class="dnnActions dnnClear">
-                <li><input type="button" class="dnnPrimaryAction" onclick="loadJson();" value="Load" /></li>
+                <li><input type="button" class="dnnSecondaryAction" onclick="showJson();" value="Get Json from settings" /></li>
+                <li><input type="button" class="dnnPrimaryAction" onclick="loadJson();" value="Load Json into settings" /></li>
             </ul>
         </div>
     </fieldset>
@@ -72,7 +73,6 @@
         </div>
     </fieldset>
     <ul class="dnnActions dnnClear">
-        <li><input type="button" class="dnnSecondaryAction" onclick="showJson();" value="Show Json" /></li>
         <li><input type="button" class="dnnSecondaryAction" onclick="doDbReplace('DoListModules');" value="List Modules" /></li>
         <li><input type="button" class="dnnSecondaryAction" onclick="doDbReplace('DoTestReplace');" value="Test Replace" /></li>
         <li><input type="button" class="dnnSecondaryAction" onclick="doDbReplace('DoGetScript');" value="Get SQL Script" /></li>
@@ -109,11 +109,11 @@
     }
     function showJson() {
         var postData = getPostData();
-        $("#ffmmDbReplaceLog").html(`<pre>${JSON.stringify(postData)}</pre>`);
+        $("#ffmmDbReplaceHelp textarea[name='LoadJson']").val(JSON.stringify(postData, null, 2));
     }
     function loadJson() {
         try {
-            var data = JSON.parse($("#ffmmDbReplaceHelp textarea[name='LoadJson'").val());
+            var data = JSON.parse($("#ffmmDbReplaceHelp textarea[name='LoadJson']").val());
 
             if (typeof (data.ConnectionString) != "undefined") {
                 $("#ffmmDbReplaceForm select[name='ConnectionString'").val(data.ConnectionString);
