@@ -3,16 +3,9 @@
   <friendlyName>40Fingers DnnMassManipulate</friendlyName>
   <description>
 	<![CDATA[
-	<b>40FINGERS DotNetNuke Module: DnnMassManipulate</b>
-	<ul>
-		<li>Feature 1.
-		</li>
-		<li>Feature 2.
-		</li>
-		<li>
-		And much more...
-		</li>
-	</ul>
+	<h4>40FINGERS DNN Module: DnnMassManipulate</h4>
+	<p>A Module to bulk-manipulate your DNN installation.<p>
+	<p><strong>Make a backup before every occasion you use this module!</strong><p>
   ]]>
   </description>
   <owner>
