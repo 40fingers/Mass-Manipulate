@@ -186,6 +186,7 @@
   <ItemGroup>
     <Content Include="js\40F-Common.js" />
     <Content Include="License.htm" />
+    <Content Include="msbuild\custom.xml" />
     <Content Include="msbuild\version.txt" />
     <Content Include="ReleaseNotes.htm" />
     <Content Include="View.ascx" />
