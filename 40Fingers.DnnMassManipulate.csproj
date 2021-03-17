@@ -156,9 +156,6 @@
     <Compile Include="ManipulatorModules\Users\UsersController.cs" />
     <Compile Include="ManipulatorModules\Users\UsersModel.cs" />
     <Compile Include="ManipulatorModules\Users\UsersModule.cs" />
-    <Compile Include="ManipulatorModules\Sample\SampleController.cs" />
-    <Compile Include="ManipulatorModules\Sample\SampleModel.cs" />
-    <Compile Include="ManipulatorModules\Sample\SampleModule.cs" />
     <Compile Include="ManipulatorModules\GenerateTabs\GenerateTabsController.cs" />
     <Compile Include="ManipulatorModules\GenerateTabs\GenerateTabsModel.cs" />
     <Compile Include="ManipulatorModules\GenerateTabs\GenerateTabsModule.cs" />
@@ -186,6 +183,7 @@
   <ItemGroup>
     <Content Include="js\40F-Common.js" />
     <Content Include="License.htm" />
+    <Content Include="msbuild\custom.xml" />
     <Content Include="msbuild\version.txt" />
     <Content Include="ReleaseNotes.htm" />
     <Content Include="View.ascx" />
@@ -219,7 +217,6 @@
     <None Include="40Fingers.DnnMassManipulate.dnn" />
     <Content Include="msbuild\build.bat" />
     <Content Include="ManipulatorModules\RemoveSkins\RemoveSkins.cshtml" />
-    <Content Include="ManipulatorModules\Sample\Sample.cshtml" />
     <Content Include="ManipulatorModules\GenerateRoles\GenerateRoles.cshtml" />
     <Content Include="ManipulatorModules\RemoveRoles\RemoveRoles.cshtml" />
     <Content Include="ManipulatorModules\CopyPagePermissions\CopyPagePermissions.cshtml" />

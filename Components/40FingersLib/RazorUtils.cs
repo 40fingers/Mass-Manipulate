@@ -11,7 +11,7 @@ namespace FortyFingers.FortyFingersLib
 {
     public static class RazorUtils
     {
-        internal static bool Render<T>(T model, string scriptfile, string scriptsPath, ModuleInstanceContext moduleContext, out string result, out string message)
+        public static bool Render<T>(T model, string scriptfile, string scriptsPath, ModuleInstanceContext moduleContext, out string result, out string message)
         {
             bool retval = false;
             try
@@ -44,7 +44,7 @@ namespace FortyFingers.FortyFingersLib
             }
             return retval;
         }
-        internal static bool Render(string scriptfile, string scriptsPath, ModuleInstanceContext moduleContext, out string result, out string message)
+        public static bool Render(string scriptfile, string scriptsPath, ModuleInstanceContext moduleContext, out string result, out string message)
         {
             bool retval = false;
             try
