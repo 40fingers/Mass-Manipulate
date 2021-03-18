@@ -33,7 +33,7 @@
             <div id="ffmmUsersLog"></div>
         </section>
     </div>
-<script>
+    <script>
     var lastType = "NUMBER";
     function templateTypeChanged() {
         var newType = $("input[name='TemplateType']:checked").val();
@@ -53,7 +53,7 @@
     }
 
     function findUsers() {
-        var service = FF.getService("40FDMM", "Users", @Model.Context.Module.ModuleID);
+        var service = FF.getService("40FDMM", "Users", @Model.Context.Module.ModuleID, @Model.Context.Portal.ActiveTab.TabID);
         FF.postForm(service,
             "FindUsers",
             "#ffmmUsersForm",
@@ -69,7 +69,7 @@
     }
 
     function findDeletedUsers() {
-        var service = FF.getService("40FDMM", "Users", @Model.Context.Module.ModuleID);
+        var service = FF.getService("40FDMM", "Users", @Model.Context.Module.ModuleID, @Model.Context.Portal.ActiveTab.TabID);
         FF.postForm(service,
             "FindUsersDeleted",
             "#ffmmUsersForm",
@@ -85,7 +85,7 @@
     }
 
     function generateUsers() {
-        var service = FF.getService("40FDMM", "Users", @Model.Context.Module.ModuleID);
+        var service = FF.getService("40FDMM", "Users", @Model.Context.Module.ModuleID, @Model.Context.Portal.ActiveTab.TabID);
         $("#ffmmUsersLog").html("please wait...");
         var progress = window.setInterval(function() {
                 $("#ffmmUsersLog").append(".");
@@ -108,7 +108,7 @@
 
     function deleteUsers(hardDelete) {
         $("input[name='HardDelete']").val(hardDelete.toString());
-        var service = FF.getService("40FDMM", "Users", @Model.Context.Module.ModuleID);
+        var service = FF.getService("40FDMM", "Users", @Model.Context.Module.ModuleID, @Model.Context.Portal.ActiveTab.TabID);
         $("#ffmmUsersLog").html("please wait...");
         var progress = window.setInterval(function() {
                 $("#ffmmUsersLog").append(".");
@@ -130,4 +130,4 @@
                 $("#ffmmUsersLog").html(postData.TabName + " failed with message " + responseText + "<br/>");
             });
     }
-</script> 
+    </script> 

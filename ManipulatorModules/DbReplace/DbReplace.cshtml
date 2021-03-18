@@ -91,7 +91,7 @@
         $('#ffmmDbReplaceForm').dnnPanels();
     });
     function doDbReplace(method) {
-        var service = FF.getService("40FDMM", "DbReplace", @Model.Context.Module.ModuleID);
+        var service = FF.getService("40FDMM", "DbReplace", @Model.Context.Module.ModuleID, @Model.Context.Portal.ActiveTab.TabID);
         var postData = {};
         postData = getPostData();
 
@@ -145,7 +145,7 @@
             }
         } catch (e) {
             $("#ffmmDbReplaceLog").html("Failed: " + JSON.stringify(e) + "<br/>");
-        } 
+        }
     }
 
     function getPostData() {
@@ -178,7 +178,7 @@
         $("#DbReplaceModule .dnnFormSectionHead:first > a").removeClass("dnnSectionExpanded");
         $("#DbReplaceModule .dnnFormSectionHead:first + fieldset").hide();
 
-        
+
 
     });
 </script>

@@ -23,7 +23,7 @@
 <script>
     function doRemoveRoles(doRemove) {
         $("#ffmmRemoveRolesLog").html("");
-        var service = FF.getService("40FDMM", "RemoveRoles", @Model.Context.Module.ModuleID);
+        var service = FF.getService("40FDMM", "RemoveRoles", @Model.Context.Module.ModuleID, @Model.Context.Portal.ActiveTab.TabID);
         var postData = {};
         postData.RolesRegex = $("#ffmmRemoveRolesForm input[name=RolesRegex]").val();
         postData.DoRemove = doRemove;
