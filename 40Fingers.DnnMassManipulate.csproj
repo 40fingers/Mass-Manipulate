@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2E88F654-FA5C-446C-A3C4-F87576591252}</ProjectGuid>
+    <ProjectGuid>{372A7AF3-DD49-485C-837C-D479D786FB19}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -156,9 +156,6 @@
     <Compile Include="ManipulatorModules\Users\UsersController.cs" />
     <Compile Include="ManipulatorModules\Users\UsersModel.cs" />
     <Compile Include="ManipulatorModules\Users\UsersModule.cs" />
-    <Compile Include="ManipulatorModules\Sample\SampleController.cs" />
-    <Compile Include="ManipulatorModules\Sample\SampleModel.cs" />
-    <Compile Include="ManipulatorModules\Sample\SampleModule.cs" />
     <Compile Include="ManipulatorModules\GenerateTabs\GenerateTabsController.cs" />
     <Compile Include="ManipulatorModules\GenerateTabs\GenerateTabsModel.cs" />
     <Compile Include="ManipulatorModules\GenerateTabs\GenerateTabsModule.cs" />
@@ -186,6 +183,7 @@
   <ItemGroup>
     <Content Include="js\40F-Common.js" />
     <Content Include="License.htm" />
+    <Content Include="msbuild\custom.xml" />
     <Content Include="msbuild\version.txt" />
     <Content Include="ReleaseNotes.htm" />
     <Content Include="View.ascx" />
@@ -205,21 +203,12 @@
     <Content Include="_external\System.Web.WebPages.Razor.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_LocalResources\View.ascx.resx">
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Settings.ascx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_LocalResources\Edit.ascx.resx">
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="40Fingers.DnnMassManipulate.dnn" />
     <Content Include="msbuild\build.bat" />
     <Content Include="ManipulatorModules\RemoveSkins\RemoveSkins.cshtml" />
-    <Content Include="ManipulatorModules\Sample\Sample.cshtml" />
     <Content Include="ManipulatorModules\GenerateRoles\GenerateRoles.cshtml" />
     <Content Include="ManipulatorModules\RemoveRoles\RemoveRoles.cshtml" />
     <Content Include="ManipulatorModules\CopyPagePermissions\CopyPagePermissions.cshtml" />

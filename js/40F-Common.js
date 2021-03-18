@@ -252,12 +252,18 @@ FF.getFormFieldsObject = function (containerSelector) {
     return obj;
 };
 
-FF.getService = function (path, controllername, servicemoduleId) {
+FF.getService = function (path, controllername, servicemoduleId, tabid) {
     var ffservice = {
         path: path, // ModuleFoldername from routemapper
-        framework: $.ServicesFramework(servicemoduleId) //$.dnnSF(servicemoduleId)
+        framework: $.ServicesFramework(servicemoduleId), //$.dnnSF(servicemoduleId)
+        moduleid: servicemoduleId,
+        tabid: tabid
     };
     ffservice.baseUrl = ffservice.framework.getServiceRoot(ffservice.path) + controllername + "/";
+    ffservice.framework.setModuleHeaders = function(jqXHR, settings) {
+        jqXHR.setRequestHeader("moduleid", servicemoduleId);
+        jqXHR.setRequestHeader("tabid", tabid);
+    }
 
     return ffservice;
 };

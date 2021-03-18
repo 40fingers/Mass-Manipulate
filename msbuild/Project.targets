@@ -23,9 +23,19 @@
         <InstallDir>_Installation</InstallDir>
         <svn></svn>
         <BinDir>$(MSBuildProjectDirectory)\bin</BinDir>
-        <DotNetNukeDir>$(MSBuildProjectDirectory)\..\..\..</DotNetNukeDir>
+        <DotNetNukeDir>$(MSBuildProjectDirectory)\Website</DotNetNukeDir>
         <DotNetNukeVer>4</DotNetNukeVer>
     </PropertyGroup>
+    <Target Name="ReadVariables" Condition="Exists('$(MSBuildProjectDirectory)\msbuild\custom.xml')">
+        <Message  Text="DotNetNukeDir is now $(DotNetNukeDir)" Importance="high"></Message>
+        <XmlRead Prefix="n"
+                Namespace="http://schemas.microsoft.com/developer/msbuild/2003"
+                XPath="Custom/DnnPath"
+                XmlFileName="$(MSBuildProjectDirectory)\msbuild\custom.xml">
+        <Output TaskParameter="Value" PropertyName="DotNetNukeDir" />
+        </XmlRead>
+        <Message  Text="DotNetNukeDir set to $(DotNetNukeDir)" Importance="high"></Message>
+    </Target>
 
     <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" Condition="Exists('$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets')"/>
 
@@ -37,8 +47,7 @@
     <Target Name="BeforeBuild">
         <CallTarget Targets="SetVersionInfo" />
     </Target>
-    <Target Name="AfterBuild">
-        <CallTarget Targets="DeployFiles" />
+    <Target Name="AfterBuild" DependsOnTargets="DeployFiles">
     </Target>
     
     <!-- Set the version numbers in DNN file and Assembly -->
@@ -78,6 +87,8 @@
     </Target>
 
     <Target Name="DeployFiles">
+        <CallTarget Targets="ReadVariables" />
+
         <MakeDir Directories="$(InstallDir)\$(Major).$(Minor).$(Build)\" />
         
         <CallTarget Targets="RemoveZips" Condition="'$(ConfigurationName)'=='Release'" />
@@ -165,6 +176,43 @@
         </CreateItem>
         <Copy SourceFiles="@(Assemblies)" DestinationFolder="$(DotNetNukeDir)\bin\" SkipUnchangedFiles="false" ContinueOnError="true" />
         <Message Text="MSBUILD: Copied @(Assemblies) to $(DotNetNukeDir)\bin\" Importance="high"></Message>
+
+        <CreateItem Include="$(MSBuildDnnBinPath)\..\DesktopModules\40Fingers\DnnMassManipulate\**;">
+        <Output TaskParameter="Include" ItemName="deleteFiles" />
+        </CreateItem>
+        <Delete ContinueOnError="true" Files="@(deleteFiles)"></Delete>
+
+                <!-- get files for resource zip-->
+        <CreateItem Exclude="$(MSBuildProjectDirectory)\**\.svn\**;
+								  $(MSBuildProjectDirectory)\_Installation\**;
+						          $(MSBuildProjectDirectory)\_ReSharper**;
+						          $(MSBuildProjectDirectory)\**\obj\**;
+						          $(MSBuildProjectDirectory)\**\bin\**;
+						          $(MSBuildProjectDirectory)\**\My Project\**;
+						          $(MSBuildProjectDirectory)\Dependencies\**;
+						          $(MSBuildProjectDirectory)\**\Properties\**;
+						          $(MSBuildProjectDirectory)\License.htm;
+						          $(MSBuildProjectDirectory)\ReleaseNotes.htm;
+						          $(MSBuildProjectDirectory)\**\msbuild\**"
+					          Include="$(MSBuildProjectDirectory)\**\*.ascx;
+						          $(MSBuildProjectDirectory)\**\*.aspx;
+						          $(MSBuildProjectDirectory)\**\*.ashx;
+						          $(MSBuildProjectDirectory)\**\*.css;
+						          $(MSBuildProjectDirectory)\**\*.js;
+				  	          $(MSBuildProjectDirectory)\**\*.resx;
+						          $(MSBuildProjectDirectory)\**\*.rdlc;
+						          $(MSBuildProjectDirectory)\**\*.gif;
+						          $(MSBuildProjectDirectory)\**\*.jpg;
+						          $(MSBuildProjectDirectory)\**\*.png;
+						          $(MSBuildProjectDirectory)\**\*.cshtml;
+						          $(MSBuildProjectDirectory)\*.dnn;
+						          $(MSBuildProjectDirectory)\Documentation\*.txt;
+						          $(MSBuildProjectDirectory)\Documentation\*.htm;
+                      $(MSBuildProjectDirectory)\Templates\**">
+            <Output TaskParameter="Include" ItemName="deploymentFiles" />
+        </CreateItem>
+        <Copy SourceFiles="@(deploymentFiles)" DestinationFolder="$(DotNetNukeDir)\DesktopModules\40Fingers\DnnMassManipulate\%(RecursiveDir)" SkipUnchangedFiles="false" ContinueOnError="true" />
+
     </Target>
 </Project>
 

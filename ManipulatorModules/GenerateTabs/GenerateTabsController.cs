@@ -15,9 +15,10 @@ using FortyFingers.Library;
 
 namespace FortyFingers.DnnMassManipulate.Services
 {
+    [DnnModuleAuthorize]
+    [SupportedModules("40Fingers.DnnMassManipulate")] // can be comma separated list of supported module
     public class GenerateTabsController : DnnApiController
     {
-        [AllowAnonymous]
         [HttpPost]
         public HttpResponseMessage DoOne(GenerateOneTabPostModel model)
         {
@@ -108,7 +109,6 @@ namespace FortyFingers.DnnMassManipulate.Services
             return Request.CreateResponse(HttpStatusCode.OK, new { TabId = newTab.TabID });
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public HttpResponseMessage ValidatePageTree(GenerateTabsPostModel model)
         {
@@ -146,7 +146,6 @@ namespace FortyFingers.DnnMassManipulate.Services
             return Request.CreateResponse(HttpStatusCode.OK, "OK");
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public HttpResponseMessage Do(GenerateTabsPostModel model)
         {

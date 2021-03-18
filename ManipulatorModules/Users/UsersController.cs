@@ -21,9 +21,10 @@ using FortyFingers.Library;
 // Leave the ApiController in this namespace to avoid the need for a custom routemapper
 namespace FortyFingers.DnnMassManipulate.Services
 {
+    [DnnModuleAuthorize]
+    [SupportedModules("40Fingers.DnnMassManipulate")] // can be comma separated list of supported module
     public class UsersController : DnnApiController
     {
-        [AllowAnonymous]
         [HttpPost]
         public HttpResponseMessage FindUsers(UsersPostModel model)
         {
@@ -61,7 +62,6 @@ namespace FortyFingers.DnnMassManipulate.Services
 
             return Request.CreateResponse(HttpStatusCode.OK, retval);
         }
-        [AllowAnonymous]
         [HttpPost]
         public HttpResponseMessage FindUsersDeleted(UsersPostModel model)
         {
@@ -100,7 +100,6 @@ namespace FortyFingers.DnnMassManipulate.Services
             return Request.CreateResponse(HttpStatusCode.OK, retval);
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public HttpResponseMessage GenerateUsers(UsersPostModel model)
         {
@@ -125,7 +124,6 @@ namespace FortyFingers.DnnMassManipulate.Services
             return Request.CreateResponse(HttpStatusCode.OK, retval);
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public HttpResponseMessage DeleteUsers(UsersPostModel model)
         {

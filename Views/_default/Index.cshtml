@@ -20,11 +20,21 @@
     </ul>
     @foreach (var module in Model.Modules)
     {
-        <div id="@(module.JsName)" class="dnnClear">
-            <div>
-                @Html.Raw(module.GetHtml())
-            </div>
-            <div>From assembly: @module.Assembly</div>
+<div id="@(module.JsName)" class="dnnClear">
+    @try
+    {
+        <div>
+            @Html.Raw(module.GetHtml())
         </div>
+    }
+    catch (Exception e)
+    {
+        <div>
+            <p><strong>Exception message: </strong>@e.Message</p>
+            <p><strong>Stacktrace: </strong>@e.StackTrace</p>
+        </div>
+    }
+    <div>From assembly: @module.Assembly</div>
+</div>
     }
 </div>

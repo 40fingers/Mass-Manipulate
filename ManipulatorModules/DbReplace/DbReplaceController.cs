@@ -23,32 +23,30 @@ using Newtonsoft.Json;
 // Leave the ApiController in this namespace to avoid the need for a custom routemapper
 namespace FortyFingers.DnnMassManipulate.Services
 {
+    [DnnModuleAuthorize]
+    [SupportedModules("40Fingers.DnnMassManipulate")] // can be comma separated list of supported module
     public class DbReplaceController : DnnApiController
     {
         #region API Methods
 
-        [AllowAnonymous]
         [HttpPost]
         public HttpResponseMessage DoReplace(DbReplacePostModel model)
         {
             var retval = SqlModulesReplace(model, ModuleReplaceMode.Replace);
             return Request.CreateResponse(HttpStatusCode.OK, retval);
         }
-        [AllowAnonymous]
         [HttpPost]
         public HttpResponseMessage DoTestReplace(DbReplacePostModel model)
         {
             var retval = SqlModulesReplace(model, ModuleReplaceMode.ReplaceTest);
             return Request.CreateResponse(HttpStatusCode.OK, retval);
         }
-        [AllowAnonymous]
         [HttpPost]
         public HttpResponseMessage DoListModules(DbReplacePostModel model)
         {
             var retval = SqlModulesReplace(model, ModuleReplaceMode.Find);
             return Request.CreateResponse(HttpStatusCode.OK, retval);
         }
-        [AllowAnonymous]
         [HttpPost]
         public HttpResponseMessage DoGetScript(DbReplacePostModel model)
         {
