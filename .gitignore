@@ -4,3 +4,4 @@ bin/
 *.user
 .vs/
 msbuild/custom.xml
+_Installation

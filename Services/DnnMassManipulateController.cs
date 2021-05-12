@@ -12,7 +12,6 @@ using DotNetNuke.Web.Api;
 namespace FortyFingers.DnnMassManipulate.Services
 {
     [DnnModuleAuthorize]
-    // The name of the controller MUST end with "Controller"
     [SupportedModules("40Fingers.DnnMassManipulate")] // can be comma separated list of supported module
     public class DnnMassManipulateController : DnnApiController
     {
