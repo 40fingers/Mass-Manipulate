@@ -5,6 +5,10 @@
 	@bg-color: #eee;
 	
 .ff-mass-manipulate{
+	
+	*{
+      box-sizing: border-box;
+  }
 
 	h2{
 		font-size: 1.5em;
@@ -26,9 +30,22 @@
 			h3{
 				font-size:1.2em;
 			}
+			
+			h4{
+				clear: both;
+			}
 			> div{
 				background: @bg-color;
 				padding:1em;
+				
+				pre{
+					float:left;
+					width: 50%;
+					padding: 0.5em;
+					&.New{
+						background: #fff;
+					}
+				}
 			}
 		}
 	}
