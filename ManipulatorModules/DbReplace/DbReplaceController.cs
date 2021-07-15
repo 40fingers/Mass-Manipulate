@@ -149,29 +149,40 @@ namespace FortyFingers.DnnMassManipulate.Services
                 // Count number of found modules
                 iModules += 1;
                 var oMod = (ModuleContent)Item.Value;
-                string sText = HttpUtility.HtmlDecode(oMod.Text);
+                string sText = oMod.Text;
 
                 RegexOptions rxOptions = RegexOptions.None;
                 if (model.CaseSensitive != bool.TrueString)
                     rxOptions = RegexOptions.IgnoreCase;
 
+                // Store the Original text
+                string sOldText = oMod.Text;
+
+                // Do the replacement according to the regex replacements
                 string sNewText = RegexReplace(sText, mode, rxList, rxOptions);
+
+                
+
 
                 if (sNewText != sText)
                 {
                     string sPortal = GetPortalString(model.AllPortals == bool.TrueString, oMod.PortalId);
 
-                    sNewText = HttpUtility.HtmlEncode(sNewText);
+                    // These are for reporting, not for parsing / Sql
+                    string sNewTextEncoded = HttpUtility.HtmlEncode(sNewText);
+                    string sOldTextEncoded = HttpUtility.HtmlEncode(sOldText);
 
+
+                    // Depending on the mode, handle text in a different way
                     switch (mode)
                     {
                         case ModuleReplaceMode.Find:
                             {
-                                if (sNewText != string.Empty)
+                                if (sNewTextEncoded != string.Empty)
                                 {
-                                    sNewText = sNewText.Replace("[*]", "<br />");
+                                    sNewTextEncoded = sNewTextEncoded.Replace("[*]", "<br />");
 
-                                    sOut.AppendLine(string.Format("<h4>Module: <a href=\"{3}/Default.aspx?Tabid={0}#{1}\" target=\"_blank\">{2}</a></h4><pre>{4}</pre>", oMod.TabId, oMod.ModuleId, oMod.Title, sPortal, sNewText));
+                                    sOut.AppendLine(string.Format("<h4>Module: <a href=\"{3}/Default.aspx?Tabid={0}#{1}\" target=\"_blank\">{2}</a></h4><pre>{4}</pre>", oMod.TabId, oMod.ModuleId, oMod.Title, sPortal, sNewTextEncoded));
 
                                     iReplaced += 1;
                                 }
@@ -181,7 +192,7 @@ namespace FortyFingers.DnnMassManipulate.Services
 
                         case ModuleReplaceMode.ReplaceTest:
                             {
-                                sOut.AppendLine(string.Format("<div><h4>Module: <a href=\"{3}/Default.aspx?Tabid={0}#{1}\" target=\"_blank\">{2}</a></h4><pre>{4}</pre><pre class=\"New\">{5}</pre></div><hr />", oMod.TabId, oMod.ModuleId, oMod.Title, sPortal, oMod.Text, sNewText));
+                                sOut.AppendLine(string.Format("<div><h4>Module: <a href=\"{3}/Default.aspx?Tabid={0}#{1}\" target=\"_blank\">{2}</a></h4><pre class=\"text-old\">{4}</pre><pre class=\"text-new\">{5}</pre></div><hr />", oMod.TabId, oMod.ModuleId, oMod.Title, sPortal, sOldTextEncoded, sNewTextEncoded));
 
                                 iReplaced += 1;
                                 break;
