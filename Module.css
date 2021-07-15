@@ -16,6 +16,9 @@
 .ff-mass-manipulate .ffmm-logging h3 {
   font-size: 1.2em;
 }
+.ff-mass-manipulate .ffmm-logging h4 {
+  clear: both;
+}
 .ff-mass-manipulate .ffmm-logging > div {
   background: #eee;
   padding: 1em;
