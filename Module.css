@@ -1,1 +1,30 @@
-.ff-mass-manipulate h2{font-size:1.5em}.ff-mass-manipulate .dnnFormItem .dnnLabel{width:15em}.ff-mass-manipulate .ffmm-logging{margin:1em 0 2em}.ff-mass-manipulate .ffmm-logging h3{font-size:1.2em}.ff-mass-manipulate .ffmm-logging>div{background:#eee;padding:1em}/*# sourceMappingURL=Module.css.map */
+/* ###
+	Please note that this file is generated from /_less/module.less, 
+	Pull requests on module.css only will not de accepted */
+.ff-mass-manipulate * {
+  box-sizing: border-box;
+}
+.ff-mass-manipulate h2 {
+  font-size: 1.5em;
+}
+.ff-mass-manipulate .dnnFormItem .dnnLabel {
+  width: 15em;
+}
+.ff-mass-manipulate .ffmm-logging {
+  margin: 1em 0 2em;
+}
+.ff-mass-manipulate .ffmm-logging h3 {
+  font-size: 1.2em;
+}
+.ff-mass-manipulate .ffmm-logging > div {
+  background: #eee;
+  padding: 1em;
+}
+.ff-mass-manipulate .ffmm-logging > div pre {
+  float: left;
+  width: 50%;
+  padding: 0.5em;
+}
+.ff-mass-manipulate .ffmm-logging > div pre.New {
+  background: #fff;
+}
