@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.UI;
-using System.Xml;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Framework;
 using DotNetNuke.Instrumentation;
-using System.Globalization;
-using FortyFingers.DnnMassManipulate.Components;
 
-namespace FortyFingers.Library
+namespace FortyFingers.DnnMassManipulate.Components._40FingersLib
 {
     /// <summary>
     /// Utility class containing several commonly used procedures by 40FINGERS

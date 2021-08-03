@@ -1,10 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using System.Security.Cryptography;
-using System.Diagnostics;
 
-namespace FortyFingers.Library
+namespace FortyFingers.DnnMassManipulate.Components._40FingersLib
 {
     public static class EncryptionUtils
     {

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using FortyFingers.Library;
+using FortyFingers.DnnMassManipulate.Components._40FingersLib;
 
 namespace FortyFingers.DnnMassManipulate.Components
 {

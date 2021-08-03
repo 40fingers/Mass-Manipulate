@@ -1,7 +1,6 @@
 ﻿using DotNetNuke.Web.Razor;
-using FortyFingers.DnnMassManipulate.Components;
 
-namespace FortyFingers.Library
+namespace FortyFingers.DnnMassManipulate.Components._40FingersLib
 {
     /// <summary>
     /// Strong Typed WebViewPage inherited by razor scripts. Adds in several helpers: Ajax, Html, Url, Dnn, moduleContext

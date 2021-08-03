@@ -17,7 +17,6 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Web.Api;
 using FortyFingers.DnnMassManipulate.ManipulatorModules.GenerateTabs;
 using FortyFingers.DnnMassManipulate.ManipulatorModules.DbReplace;
-using FortyFingers.Library;
 using Newtonsoft.Json;
 
 // Leave the ApiController in this namespace to avoid the need for a custom routemapper

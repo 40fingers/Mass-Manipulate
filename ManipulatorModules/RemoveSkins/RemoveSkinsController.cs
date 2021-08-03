@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using DotNetNuke.Web.Api;
 
-namespace FortyFingers.DnnMassManipulate.ManipulatorModules.RemoveSkins
+namespace FortyFingers.DnnMassManipulate.Services
 {
     [DnnModuleAuthorize]
     [SupportedModules("40Fingers.DnnMassManipulate")] // can be comma separated list of supported module
