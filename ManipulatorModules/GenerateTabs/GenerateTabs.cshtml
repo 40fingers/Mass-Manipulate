@@ -32,7 +32,7 @@
 </div>
 <script>
     function doGenerateTabs() {
-        var service = FF.getService("40FDMM", "GenerateTabs", @Model.Context.Module.ModuleID);
+        var service = FF.getService("40FDMM", "GenerateTabs", @Model.Context.Module.ModuleID, @Model.Context.Portal.ActiveTab.TabID);
         FF.postForm(service,
             "Do",
             "#ffmmGenerateTabsForm",
@@ -47,7 +47,7 @@
     }
 
     function doGenerateTabsOneByOne() {
-        var service = FF.getService("40FDMM", "GenerateTabs", @Model.Context.Module.ModuleID);
+        var service = FF.getService("40FDMM", "GenerateTabs", @Model.Context.Module.ModuleID, @Model.Context.Portal.ActiveTab.TabID);
 
         var allTabs = $("#ffmmGenerateTabsForm textarea[name=PageTree]").val().split("\n");
         if (allTabs.length > 0) {
@@ -64,7 +64,7 @@
     }
 
     function validatePageTree(onValid, onInvalid) {
-        var service = FF.getService("40FDMM", "GenerateTabs", @Model.Context.Module.ModuleID);
+        var service = FF.getService("40FDMM", "GenerateTabs", @Model.Context.Module.ModuleID, @Model.Context.Portal.ActiveTab.TabID);
         FF.postForm(service,
             "ValidatePageTree",
             "#ffmmGenerateTabsForm",

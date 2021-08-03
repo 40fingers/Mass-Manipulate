@@ -10,6 +10,8 @@ namespace FortyFingers.DnnMassManipulate.Components
         public ContextHelper Context { get; set; }
         public string JsName => this.GetType().Name;
         public string Assembly => this.GetType().AssemblyQualifiedName;
+        public string Html { get; set; }
+
         public abstract string TabName();
         public abstract bool AllowAdministrator();
 

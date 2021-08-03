@@ -191,7 +191,6 @@
 						          $(MSBuildProjectDirectory)\**\My Project\**;
 						          $(MSBuildProjectDirectory)\Dependencies\**;
 						          $(MSBuildProjectDirectory)\**\Properties\**;
-						          $(MSBuildProjectDirectory)\*.dnn;
 						          $(MSBuildProjectDirectory)\License.htm;
 						          $(MSBuildProjectDirectory)\ReleaseNotes.htm;
 						          $(MSBuildProjectDirectory)\**\msbuild\**"
@@ -206,6 +205,7 @@
 						          $(MSBuildProjectDirectory)\**\*.jpg;
 						          $(MSBuildProjectDirectory)\**\*.png;
 						          $(MSBuildProjectDirectory)\**\*.cshtml;
+						          $(MSBuildProjectDirectory)\*.dnn;
 						          $(MSBuildProjectDirectory)\Documentation\*.txt;
 						          $(MSBuildProjectDirectory)\Documentation\*.htm;
                       $(MSBuildProjectDirectory)\Templates\**">

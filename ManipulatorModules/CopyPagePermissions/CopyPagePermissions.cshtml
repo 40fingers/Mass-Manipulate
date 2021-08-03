@@ -28,7 +28,7 @@
 <script>
     function doCopyPagePermissions(doCopy) {
         $("#ffmmCopyPagePermissionsLog").html("");
-        var service = FF.getService("40FDMM", "CopyPagePermissions", @Model.Context.Module.ModuleID);
+        var service = FF.getService("40FDMM", "CopyPagePermissions", @Model.Context.Module.ModuleID, @Model.Context.Portal.ActiveTab.TabID);
         var postData = {};
         postData.FromRole = $("#ffmmCopyPagePermissionsForm input[name=FromRole]").val();
         postData.ToRole = $("#ffmmCopyPagePermissionsForm input[name=ToRole]").val();
