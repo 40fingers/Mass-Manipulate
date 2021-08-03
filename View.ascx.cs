@@ -16,7 +16,7 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Web.Client;
 using DotNetNuke.Web.Client.ClientResourceManagement;
 using FortyFingers.DnnMassManipulate.Components;
-using FortyFingers.FortyFingersLib;
+using FortyFingers.DnnMassManipulate.Components._40FingersLib;
 
 namespace FortyFingers.DnnMassManipulate
 {

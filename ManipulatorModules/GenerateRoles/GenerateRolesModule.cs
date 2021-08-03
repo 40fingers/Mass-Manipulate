@@ -8,7 +8,7 @@ using DotNetNuke.Entities.Users;
 using DotNetNuke.Security;
 using DotNetNuke.Services.Localization;
 using FortyFingers.DnnMassManipulate.Components;
-using FortyFingers.FortyFingersLib;
+using FortyFingers.DnnMassManipulate.Components._40FingersLib;
 
 namespace FortyFingers.DnnMassManipulate.ManipulatorModules.GenerateRoles
 {

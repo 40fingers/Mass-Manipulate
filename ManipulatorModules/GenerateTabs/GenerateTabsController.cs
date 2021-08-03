@@ -10,8 +10,8 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Security.Permissions;
 using DotNetNuke.Web.Api;
+using FortyFingers.DnnMassManipulate.Components._40FingersLib;
 using FortyFingers.DnnMassManipulate.ManipulatorModules.GenerateTabs;
-using FortyFingers.Library;
 
 namespace FortyFingers.DnnMassManipulate.Services
 {

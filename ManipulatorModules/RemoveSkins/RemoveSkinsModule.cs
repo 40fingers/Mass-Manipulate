@@ -8,7 +8,7 @@ using DotNetNuke.Entities.Host;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Users;
 using FortyFingers.DnnMassManipulate.Components;
-using FortyFingers.FortyFingersLib;
+using FortyFingers.DnnMassManipulate.Components._40FingersLib;
 
 namespace FortyFingers.DnnMassManipulate.ManipulatorModules.RemoveSkins
 {

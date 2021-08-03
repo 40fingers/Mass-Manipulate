@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Web.Hosting;
 using DotNetNuke.UI.Modules;
 using DotNetNuke.Web.Razor;
 
-namespace FortyFingers.FortyFingersLib
+namespace FortyFingers.DnnMassManipulate.Components._40FingersLib
 {
     public static class RazorUtils
     {

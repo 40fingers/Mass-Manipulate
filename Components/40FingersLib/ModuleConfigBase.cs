@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Services.Localization;
 
-namespace FortyFingers.Library
+namespace FortyFingers.DnnMassManipulate.Components._40FingersLib
 {
     public abstract class ModuleConfigBase
     {

@@ -13,7 +13,6 @@ using DotNetNuke.Security.Roles;
 using DotNetNuke.Web.Api;
 using FortyFingers.DnnMassManipulate.Components;
 using FortyFingers.DnnMassManipulate.ManipulatorModules.GenerateRoles;
-using FortyFingers.Library;
 
 // Leave the ApiController in this namespace to avoid the need for a custom routemapper
 namespace FortyFingers.DnnMassManipulate.Services

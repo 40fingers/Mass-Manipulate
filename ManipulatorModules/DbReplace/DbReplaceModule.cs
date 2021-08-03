@@ -9,8 +9,8 @@ using DotNetNuke.Entities.Users;
 using DotNetNuke.Security;
 using DotNetNuke.Services.Localization;
 using FortyFingers.DnnMassManipulate.Components;
+using FortyFingers.DnnMassManipulate.Components._40FingersLib;
 using FortyFingers.DnnMassManipulate.ManipulatorModules.DbReplace;
-using FortyFingers.FortyFingersLib;
 
 namespace FortyFingers.DnnMassManipulate.ManipulatorModules.DbReplace
 {
