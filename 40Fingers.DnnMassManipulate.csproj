@@ -144,6 +144,9 @@
     <Compile Include="ManipulatorModules\CopyPagePermissions\CopyPagePermissionsController.cs" />
     <Compile Include="ManipulatorModules\CopyPagePermissions\CopyPagePermissionsModel.cs" />
     <Compile Include="ManipulatorModules\CopyPagePermissions\CopyPagePermissionsModule.cs" />
+    <Compile Include="ManipulatorModules\HashPasswords\HashPasswordsController.cs" />
+    <Compile Include="ManipulatorModules\HashPasswords\HashPasswordsModel.cs" />
+    <Compile Include="ManipulatorModules\HashPasswords\HashPasswordsModule.cs" />
     <Compile Include="ManipulatorModules\RemoveRoles\RemoveRolesController.cs" />
     <Compile Include="ManipulatorModules\RemoveRoles\RemoveRolesModel.cs" />
     <Compile Include="ManipulatorModules\RemoveRoles\RemoveRolesModule.cs" />
@@ -214,6 +217,7 @@
     <Content Include="ManipulatorModules\CopyPagePermissions\CopyPagePermissions.cshtml" />
     <Content Include="ManipulatorModules\Users\Users.cshtml" />
     <Content Include="ManipulatorModules\DbReplace\DbReplace.cshtml" />
+    <Content Include="ManipulatorModules\HashPasswords\HashPasswords.cshtml" />
     <None Include="msbuild\Project.targets" />
     <None Include="packages.config" />
     <Content Include="Views\_default\Index.cshtml" />
