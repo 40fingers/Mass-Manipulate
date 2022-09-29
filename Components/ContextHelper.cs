@@ -26,7 +26,7 @@ namespace FortyFingers.DnnMassManipulate.Components
         public UserInfo User { get; set; }
 
         /// <summary>
-        /// Reference tp the current portal's portalsettings
+        /// Reference to the current portal's portalsettings
         /// </summary>
         public PortalSettings Portal { get; set; }
 
