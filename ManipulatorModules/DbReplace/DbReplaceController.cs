@@ -133,49 +133,100 @@ namespace FortyFingers.DnnMassManipulate.Services
             StringBuilder sOut = new StringBuilder();
 
             var rxList = new List<KeyValuePair<string, string>>();
+            var hasInvalidInput = false;
             foreach (var searchReplacePairModel in model.SearchReplace)
             {
                 if (!string.IsNullOrEmpty(searchReplacePairModel.Search))
+                {
+                    if (!IsValidRegex(searchReplacePairModel.Search))
+                    {
+                        sOut.AppendLine($"Invalid regex: {searchReplacePairModel.Search}<br/>");
+                        hasInvalidInput = true;
+                        continue;
+                    }
                     rxList.Add(new KeyValuePair<string, string>(searchReplacePairModel.Search, searchReplacePairModel.Replace));
+                }
             }
 
             int iModules = 0;
             int iReplaced = 0;
+            var retval = "";
 
-            foreach (DictionaryEntry Item in htModules)
+            if (!hasInvalidInput)
             {
+                ProcessModules();
 
-                // Count number of found modules
-                iModules += 1;
-                var oMod = (ModuleContent)Item.Value;
-                string sText = oMod.Text;
+                // Output
+                switch (mode)
+                {
+                    case ModuleReplaceMode.Find:
+                    {
+                        retval = $"<div class=\"Report\"><h2>Checked Items: {iModules} - found {iReplaced}</h2>{sOut}</div>";
+                        break;
+                    }
 
-                RegexOptions rxOptions = RegexOptions.None;
-                if (model.CaseSensitive != bool.TrueString)
-                    rxOptions = RegexOptions.IgnoreCase;
+                    case ModuleReplaceMode.ReplaceTest:
+                    {
+                        retval = $"<div class=\"Report\"><h2>Checked Items: {iModules} - replaced {iReplaced}</h2>{sOut}</div>";
+                        break;
+                    }
 
-                // Store the Original text
-                string sOldText = oMod.Text;
+                    case ModuleReplaceMode.GetScript:
+                    {
+                        retval = $"<div class=\"Report\"><h2>Generated SQL script for {iReplaced}/{iModules} Items</h2>{sOut}</div>";
+                        break;
+                    }
 
-                // Do the replacement according to the regex replacements
-                string sNewText = RegexReplace(sText, mode, rxList, rxOptions);
+                    case ModuleReplaceMode.Replace:
+                    {
+                        retval = $"<div class=\"Report\"><h2>Checked Items: {iModules} - replaced {iReplaced}</h2>{sOut}</div>";
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                retval = string.Format($"<div class=\"Report\"><h2>Invalid input - see below</h2>{sOut}</div>");
+            }
+
+            return retval;
+
+            void ProcessModules()
+            {
+                foreach (DictionaryEntry Item in htModules)
+                {
+
+                    // Count number of found modules
+                    iModules += 1;
+                    var oMod = (ModuleContent)Item.Value;
+                    string sText = oMod.Text;
+
+                    RegexOptions rxOptions = RegexOptions.None;
+                    if (model.CaseSensitive != bool.TrueString)
+                        rxOptions = RegexOptions.IgnoreCase;
+
+                    // Store the Original text
+                    string sOldText = oMod.Text;
+
+                    // Do the replacement according to the regex replacements
+                    string sNewText = RegexReplace(sText, mode, rxList, rxOptions);
 
                 
 
 
-                if (sNewText != sText)
-                {
-                    string sPortal = GetPortalString(model.AllPortals == bool.TrueString, oMod.PortalId);
-
-                    // These are for reporting, not for parsing / Sql
-                    string sNewTextEncoded = HttpUtility.HtmlEncode(sNewText);
-                    string sOldTextEncoded = HttpUtility.HtmlEncode(sOldText);
-
-
-                    // Depending on the mode, handle text in a different way
-                    switch (mode)
+                    if (sNewText != sText)
                     {
-                        case ModuleReplaceMode.Find:
+                        string sPortal = GetPortalString(model.AllPortals == bool.TrueString, oMod.PortalId);
+
+                        // These are for reporting, not for parsing / Sql
+                        string sNewTextEncoded = HttpUtility.HtmlEncode(sNewText);
+                        string sOldTextEncoded = HttpUtility.HtmlEncode(sOldText);
+
+
+                        // Depending on the mode, handle text in a different way
+                        switch (mode)
+                        {
+                            case ModuleReplaceMode.Find:
                             {
                                 if (sNewTextEncoded != string.Empty)
                                 {
@@ -189,7 +240,7 @@ namespace FortyFingers.DnnMassManipulate.Services
                                 break;
                             }
 
-                        case ModuleReplaceMode.ReplaceTest:
+                            case ModuleReplaceMode.ReplaceTest:
                             {
                                 sOut.AppendLine(string.Format("<div><h4>Module: <a href=\"{3}/Default.aspx?Tabid={0}#{1}\" target=\"_blank\">{2}</a></h4><pre class=\"text-old\">{4}</pre><pre class=\"text-new\">{5}</pre></div><hr />", oMod.TabId, oMod.ModuleId, oMod.Title, sPortal, sOldTextEncoded, sNewTextEncoded));
 
@@ -197,7 +248,7 @@ namespace FortyFingers.DnnMassManipulate.Services
                                 break;
                             }
 
-                        case ModuleReplaceMode.Replace:
+                            case ModuleReplaceMode.Replace:
                             {
                                 var sUpdateSql = model.SqlUpdate;
 
@@ -211,7 +262,8 @@ namespace FortyFingers.DnnMassManipulate.Services
                                     // Update
                                     if (ModuleSqlReplaceSave(GetConnectionString(model), sUpdateSql))
                                     {
-                                        sOut.AppendLine(string.Format("<div><a href=\"/Default.aspx?Tabid={0}#{1}\" target=\"_blank\">{2}</a></div>", oMod.TabId, oMod.ModuleId, oMod.Title));
+                                        sOut.AppendLine(
+                                            $"<div><a href=\"/Default.aspx?Tabid={oMod.TabId}#{oMod.ModuleId}\" target=\"_blank\">{oMod.Title}</a></div>");
 
                                         iReplaced += 1;
                                     }
@@ -220,7 +272,7 @@ namespace FortyFingers.DnnMassManipulate.Services
                                 }
                                 break;
                             }
-                        case ModuleReplaceMode.GetScript:
+                            case ModuleReplaceMode.GetScript:
                             {
                                 var sUpdateSql = model.SqlUpdate;
 
@@ -233,7 +285,7 @@ namespace FortyFingers.DnnMassManipulate.Services
                                     // To show copyable SQL on page
                                     string sPrint = sUpdateSql.Replace("&#39;", "&#39;&#39;");
 
-                                    sOut.AppendLine(string.Format("<pre>{0}</pre><hr />", sPrint));
+                                    sOut.AppendLine($"<pre>{sPrint}</pre><hr />");
 
                                     iReplaced += 1;
                                 }
@@ -241,40 +293,10 @@ namespace FortyFingers.DnnMassManipulate.Services
                                     sOut.AppendLine("Invalid Update SQL <br />");
                                 break;
                             }
+                        }
                     }
                 }
             }
-
-            var retval = "";
-            // Output
-            switch (mode)
-            {
-                case ModuleReplaceMode.Find:
-                    {
-                        retval = string.Format("<div class=\"Report\"><h2>Checked Items: {0} - found {1}</h2>{2}</div>", iModules, iReplaced, sOut.ToString());
-                        break;
-                    }
-
-                case ModuleReplaceMode.ReplaceTest:
-                    {
-                        retval = string.Format("<div class=\"Report\"><h2>Checked Items: {0} - replaced {1}</h2>{2}</div>", iModules, iReplaced, sOut.ToString());
-                        break;
-                    }
-
-                case ModuleReplaceMode.GetScript:
-                    {
-                        retval = string.Format("<div class=\"Report\"><h2>Generated SQL script for {0}/{1} Items</h2>{2}</div>", iReplaced, iModules, sOut.ToString());
-                        break;
-                    }
-
-                case ModuleReplaceMode.Replace:
-                    {
-                        retval = string.Format("<div class=\"Report\"><h2>Checked Items: {0} - replaced {1}</h2>{2}</div>", iModules, iReplaced, sOut.ToString());
-                        break;
-                    }
-            }
-
-            return retval;
         }
         private bool ModuleSqlReplaceSave(string connectionString, string UpdateSql)
         {
@@ -312,7 +334,7 @@ namespace FortyFingers.DnnMassManipulate.Services
         }
         private string ReplaceToken(string Input, string Token, string Replacement)
         {
-            var sRegex = Regex.Escape(string.Format("[{0}]", Token));
+            var sRegex = Regex.Escape($"[{Token}]");
 
             return Regex.Replace(Input, sRegex, Replacement, RegexOptions.IgnoreCase);
         }
@@ -322,9 +344,9 @@ namespace FortyFingers.DnnMassManipulate.Services
             if (allPortals)
             {
                 if (PortalId != PortalSettings.PortalId)
-                    return string.Format("//{0}", GetPortalAlias(PortalId));
+                    return $"//{GetPortalAlias(PortalId)}";
                 else
-                    return string.Format("//{0}", PortalSettings.PortalAlias.HTTPAlias);
+                    return $"//{PortalSettings.PortalAlias.HTTPAlias}";
             }
             else
                 return "";
@@ -377,7 +399,7 @@ namespace FortyFingers.DnnMassManipulate.Services
 
         private int CheckDbValueInteger(SqlDataReader reader, string colName, int defaultValue)
         {
-            string selector = string.Format("ColumnName='{0}'", colName);
+            string selector = $"ColumnName='{colName}'";
 
             if (reader.GetSchemaTable().Select(selector).Length > 0)
                 return (int)reader[colName];
@@ -386,7 +408,7 @@ namespace FortyFingers.DnnMassManipulate.Services
         }
         private string CheckDbValueString(SqlDataReader reader, string colName, string defaultValue)
         {
-            string selector = string.Format("ColumnName='{0}'", colName);
+            string selector = $"ColumnName='{colName}'";
 
             if (reader.GetSchemaTable().Select(selector).Length > 0)
                 return reader[colName].ToString();
@@ -427,6 +449,19 @@ namespace FortyFingers.DnnMassManipulate.Services
                 this.Text = Text;
             }
         }
+        public bool IsValidRegex(string pattern)
+        {
+            if (string.IsNullOrEmpty(pattern)) return false;
 
+            try
+            {
+                new System.Text.RegularExpressions.Regex(pattern);
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+        }
     }
 }
