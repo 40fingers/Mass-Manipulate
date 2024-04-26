@@ -173,7 +173,7 @@ These Replacements are &lt;a href=&quot;https://docs.microsoft.com/en-us/dotnet/
 
 &lt;h3&gt;Show/Load Json&lt;/h3&gt;
 &lt;p&gt;Using the &quot;Show Json&quot; button will give you a JSON string of your current configuration.&lt;br&gt;
-If you save this JSON (locally, this modules doesn't do it for you), you can use the Load Json function later on to quickly reuse that same configuration.&lt;/p&gt;
+If you save this JSON (this modules doesn't do it for you, so copy and paste the content in a text editor), you can use the Load Json function later on (e.g. on a production site) to quickly reuse that same configuration.&lt;/p&gt;
 &lt;h3&gt;Buttons&lt;/h3&gt;
 &lt;p&gt;There are four buttons:&lt;br&gt;
 &lt;ul&gt;
