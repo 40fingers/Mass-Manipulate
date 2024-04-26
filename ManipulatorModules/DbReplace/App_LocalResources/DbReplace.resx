@@ -163,7 +163,7 @@ WHERE
 &lt;/pre&gt;&lt;/p&gt;
 
 &lt;h3&gt;Search/Replace pairs (1-3)&lt;/h3&gt;
-&lt;p&gt;This will do a Search and Replace on the &quot;ContentText&quot; value found with the SEWLECT Query.&lt;br&gt;
+&lt;p&gt;This will do a Search and Replace on the &quot;ContentText&quot; value found with the SELECT Query.&lt;br&gt;
 The pairs of replace textboxes are handles in the order they are shown (so you can do up to 3 replacements at once). &lt;br&gt;
 These Replacements are &lt;a href=&quot;https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expressions&quot;&gt;Regular Expression&lt;/a&gt; based.&lt;/p&gt;
 &lt;h3&gt;All Portals&lt;/h3&gt;
