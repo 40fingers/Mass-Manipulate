@@ -356,29 +356,19 @@ namespace FortyFingers.DnnMassManipulate.Services
 
             foreach (KeyValuePair<string, string> Pair in RegexList)
             {
+                // mode doesn't really matter here: we want them to behave the same
                 switch (Mode)
                 {
                     case ModuleReplaceMode.ReplaceTest:
                     case ModuleReplaceMode.GetScript:
                     case ModuleReplaceMode.Replace:
+                    case ModuleReplaceMode.Find:
                         {
                             sProcess = Regex.Replace(sProcess, Pair.Key, Pair.Value, CompareCase | RegexOptions.CultureInvariant | RegexOptions.Singleline);
                             break;
                         }
-
-                    case ModuleReplaceMode.Find:
-                        {
-                            var sOut = string.Empty;
-
-                            // Loop over Matches
-                            foreach (Match m in Regex.Matches(sProcess, Pair.Key, CompareCase | RegexOptions.CultureInvariant | RegexOptions.Singleline))
-
-                                sOut += string.Format("{0}[*]", m.Value);
-
-
-                            sProcess = sOut;
-                            break;
-                        }
+                    default:
+                        break;
                 }
             }
 
