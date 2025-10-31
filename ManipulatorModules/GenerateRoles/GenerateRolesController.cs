@@ -56,16 +56,16 @@ namespace FortyFingers.DnnMassManipulate.Services
             if (oRole1 == null)
             {
                 // Role does not exist yet
-                RoleInfo oRole = new RoleInfo();
+                var oRole = new RoleInfo()
                 {
-                    var withBlock = oRole;
-                    withBlock.PortalID = PortalSettings.PortalId;
-                    withBlock.RoleName = RoleName;
-                    withBlock.IsPublic = false;
-                    withBlock.AutoAssignment = false;
-                    withBlock.RoleGroupID = Null.NullInteger;
-                    withBlock.Description = "Auto generated Role";
-                }
+                    PortalID = PortalSettings.PortalId,
+                    RoleName = RoleName,
+                    IsPublic = false,
+                    AutoAssignment = false,
+                    RoleGroupID = Null.NullInteger,
+                    Description = "Auto generated Role",
+                    Status = RoleStatus.Approved,
+                };
                 oDnnRoleController.AddRole(oRole);
                 return (true);
             }

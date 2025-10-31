@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -17,7 +17,7 @@
     <OldToolsVersion>4.0</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <SccProjectName>Svn</SccProjectName>
     <SccLocalPath>Svn</SccLocalPath>
     <SccAuxPath>Svn</SccAuxPath>
@@ -159,9 +159,6 @@
     <Compile Include="ManipulatorModules\GenerateTabs\GenerateTabsController.cs" />
     <Compile Include="ManipulatorModules\GenerateTabs\GenerateTabsModel.cs" />
     <Compile Include="ManipulatorModules\GenerateTabs\GenerateTabsModule.cs" />
-    <Compile Include="ManipulatorModules\RemoveSkins\RemoveSkinsController.cs" />
-    <Compile Include="ManipulatorModules\RemoveSkins\RemoveSkinsModel.cs" />
-    <Compile Include="ManipulatorModules\RemoveSkins\RemoveSkinsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DnnMassManipulateController.cs" />
     <Compile Include="Services\RouteMapper.cs" />
@@ -208,7 +205,6 @@
   <ItemGroup>
     <None Include="40Fingers.DnnMassManipulate.dnn" />
     <Content Include="msbuild\build.bat" />
-    <Content Include="ManipulatorModules\RemoveSkins\RemoveSkins.cshtml" />
     <Content Include="ManipulatorModules\GenerateRoles\GenerateRoles.cshtml" />
     <Content Include="ManipulatorModules\RemoveRoles\RemoveRoles.cshtml" />
     <Content Include="ManipulatorModules\CopyPagePermissions\CopyPagePermissions.cshtml" />

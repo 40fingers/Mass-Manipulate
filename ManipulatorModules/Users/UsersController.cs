@@ -40,7 +40,7 @@ namespace FortyFingers.DnnMassManipulate.Services
             if (range.FromValue >= 0)
             {
                 var sNumber = range.GetRangeFormat(0, 3);
-                for (int i = range.FromValue; i < range.ToValue; i++)
+                for (int i = range.FromValue; i <= range.ToValue; i++)
                 {
                     var username = String.Format(range.RestString + sNumber, i);
                     var status = UserExists(username);
@@ -77,7 +77,7 @@ namespace FortyFingers.DnnMassManipulate.Services
             if (range.FromValue >= 0)
             {
                 var sNumber = range.GetRangeFormat(0, 3);
-                for (int i = range.FromValue; i < range.ToValue; i++)
+                for (int i = range.FromValue; i <= range.ToValue; i++)
                 {
                     var username = String.Format(range.RestString + sNumber, i);
                     var status = UserExists(username);
@@ -109,7 +109,7 @@ namespace FortyFingers.DnnMassManipulate.Services
             if (range.FromValue >= 0)
             {
                 var sNumber = range.GetRangeFormat(0, 3);
-                for (int i = range.FromValue; i < range.ToValue; i++)
+                for (int i = range.FromValue; i <= range.ToValue; i++)
                 {
                     var username = String.Format(range.RestString + sNumber, i);
                     var userError = CreateUser(username, model.UsersFolders);
@@ -140,7 +140,7 @@ namespace FortyFingers.DnnMassManipulate.Services
             if (range.FromValue >= 0)
             {
                 var sNumber = range.GetRangeFormat(0, 3);
-                for (int i = range.FromValue; i < range.ToValue; i++)
+                for (int i = range.FromValue; i <= range.ToValue; i++)
                 {
                     var username = String.Format(range.RestString + sNumber, i);
                     var status = DeleteUser(username, model.HardDelete);
