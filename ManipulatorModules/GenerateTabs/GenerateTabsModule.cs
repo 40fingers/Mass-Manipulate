@@ -32,6 +32,9 @@ namespace FortyFingers.DnnMassManipulate.ManipulatorModules.GenerateTabs
             string retval;
             var model = new GenerateTabsModel();
             model.Context = Context;
+            model.Help = Localization.GetString("Help.Html",
+               "~\\DesktopModules\\40Fingers\\DnnMassManipulate\\ManipulatorModules\\GenerateTabs\\App_LocalResources\\GenerateTabs.resx");
+
             model.Tabs = GetTabs(true, true, true);
 
             if (RazorUtils.Render(model, "GenerateTabs.cshtml", ScriptsPath, null, out retval, out msg))

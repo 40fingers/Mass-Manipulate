@@ -1,16 +1,26 @@
 ﻿@inherits FortyFingers.DnnMassManipulate.Components._40FingersLib.FfRazorViewPageOfT<FortyFingers.DnnMassManipulate.ManipulatorModules.GenerateTabs.GenerateTabsModel>
 @{
 }
+
+<div class="dnnForm ffm-tabs-help" id="ffmmGenerateTabsHelp">
+    <h2 class="dnnFormSectionHead"><a href="#">Help</a></h2>
+    <fieldset class="ddnClear">
+        <div class="ffm-tabs-help-content">
+            @Html.Raw(Model.Help)
+        </div>
+    </fieldset>
+</div>
+
 <div class="dnnForm ffmm-tabs" id="ffmmGenerateTabsForm">
-    <h2>Generate Tabs</h2>
-    <fieldset>
+    <h2 class="dnnFormSectionHead"><a href="#">Generate Tabs</a></h2>
+    <fieldset class="ddnClear">
         <div class="dnnFormItem">
             <label class="dnnLabel">Indent Character</label>
-            <input type="text" name="IndentCharacter" class="dnnFormInput" maxlength="1" value=">" />
+            <input type="text" name="IndentCharacter" class="dnnFormInput" maxlength="1" style="width:3em" value=">" />
         </div>
         <div class="dnnFormItem">
             <label class="dnnLabel">Parent page</label>
-            <select name="ParentTabId" class="dnnFormInput">
+            <select name="ParentTabId" class="dnnFormInput" style="width:445px">
                 @foreach (var tab in Model.Tabs)
                 {
                     <option value="@tab.TabID">@tab.IndentedTabName</option>
@@ -19,7 +29,7 @@
         </div>
         <div class="dnnFormItem">
             <label class="dnnLabel">Page Tree</label>
-            <textarea name="PageTree" rows="2" cols="20" style="height:500px;width:500px;" class="dnnFormInput"></textarea>
+            <textarea name="PageTree" rows="2" cols="20" style="height:350px;width:445px;" class="dnnFormInput"></textarea>
         </div>
     </fieldset>
     <ul class="dnnActions dnnClear">
@@ -31,6 +41,11 @@
 	</section>
 </div>
 <script>
+    $(function () {
+        $('#ffmmGenerateTabsHelp').dnnPanels();
+        $('#ffmmGenerateTabsForm').dnnPanels();
+    });
+
     function doGenerateTabs() {
         var service = FF.getService("40FDMM", "GenerateTabs", @Model.Context.Module.ModuleID, @Model.Context.Portal.ActiveTab.TabID);
         FF.postForm(service,
@@ -106,4 +121,14 @@
                 $("#ffmmGenerateTabsLog").append(postData.TabName + " failed with message " + responseText + "<br/>");
             });
     }
+
+    $(document).ready(function () {
+
+        $("#ffmmGenerateTabsHelp .dnnFormSectionHead:first > a").removeClass("dnnSectionExpanded");
+        $("#ffmmGenerateTabsHelp .dnnFormSectionHead:first + fieldset").hide();
+
+
+
+    });
+
 </script>
