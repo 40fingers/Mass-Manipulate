@@ -7,6 +7,7 @@ namespace FortyFingers.DnnMassManipulate.Components
 {
     public abstract class ManipulatorModuleBase
     {
+        public int TabOrder { get; set; } = 0;
         public ContextHelper Context { get; set; }
         public string JsName => this.GetType().Name;
         public string Assembly => this.GetType().AssemblyQualifiedName;
@@ -20,5 +21,7 @@ namespace FortyFingers.DnnMassManipulate.Components
             return AllowAdministrator();
         }
         public abstract string GetHtml();
+
+        public bool Enabled { get; set; }
     }
 }

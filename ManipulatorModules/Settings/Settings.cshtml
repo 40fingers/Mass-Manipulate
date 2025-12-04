@@ -1,0 +1,69 @@
+﻿@inherits FortyFingers.DnnMassManipulate.Components._40FingersLib.FfRazorViewPageOfT<FortyFingers.DnnMassManipulate.ManipulatorModules.Settings.SettingsModel>
+@{
+}
+
+<div class="dnnForm ffm-settings-help" id="ffmmSettingsHelp">
+    <h2 class="dnnFormSectionHead"><a href="#">Help</a></h2>
+    <fieldset class="ddnClear">
+        <div class="ffm-tabs-help-content">
+            @Html.Raw(Model.Help)
+        </div>
+    </fieldset>
+</div>
+
+<div class="dnnForm ffmm-Settings" id="ffmmSettingsForm">
+    <h2 class="dnnFormSectionHead"><a href="#">Settings</a></h2>
+    <fieldset>
+        @foreach (var m in Model.Modules)
+        {
+            <div class="dnnFormItem">
+                <label class="dnnLabel" for="tab@(m.Key)">@m.Value.Item1</label>
+                <input type="checkbox" class="dnnFormInput tabEnabledSetting" id="tab@(m.Key)" data-tabEnabledSetting="@(m.Key)" name="@m.Key" @(m.Value.Item2 ? "checked" : "") />
+            </div>
+        }
+    </fieldset>
+    <ul class="dnnActions dnnClear">
+        <li><input type="button" class="dnnPrimaryAction" onclick="doSave();" value="Save Settings" /></li>
+    </ul>
+
+    <section class="ffmm-logging">
+        <h3>Logging:</h3>
+        <div id="ffmmSettingsLog"></div>
+    </section>
+
+</div>
+<script>
+    $(function () {
+        $('#ffmmSettingsHelp').dnnPanels();
+        $('#ffmmSettingsForm').dnnPanels();
+    });
+
+    function doSave(service) {
+        var svc = FF.getService("40FDMM", "Settings", @Model.Context.Module.ModuleID, @Model.Context.Portal.ActiveTab.TabID);
+        var postData = { "Modules": [] };
+        $("#ffmmSettingsForm input.tabEnabledSetting").each(function () {
+            var key = $(this).attr('data-tabEnabledSetting');
+            var checked = $(this).is(':checked');
+            postData.Modules.push({ "Module": key, "Enabled": checked });
+        });
+
+        // 4. Update the UI log
+        $("#ffmmSettingsLog").html("Saving settings<br/>");
+
+        // 5. Post the collected object
+        FF.postFormFieldsObject(svc,
+            "Save",
+            postData,
+            function (data) {
+                // onDone
+                $("#ffmmSettingsLog").append(data + "<br/>");
+                window.setTimeout(() => {
+                    window.location.reload();
+                })
+            },
+            function (responseText) {
+                // onFail
+                $("#ffmmSettingsLog").append("Save failed: " + responseText + "<br/>");
+            });
+    }
+</script>

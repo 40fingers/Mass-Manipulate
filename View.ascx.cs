@@ -17,6 +17,7 @@ using DotNetNuke.Web.Client;
 using DotNetNuke.Web.Client.ClientResourceManagement;
 using FortyFingers.DnnMassManipulate.Components;
 using FortyFingers.DnnMassManipulate.Components._40FingersLib;
+using FortyFingers.DnnMassManipulate.ManipulatorModules.Search;
 
 namespace FortyFingers.DnnMassManipulate
 {
@@ -27,7 +28,7 @@ namespace FortyFingers.DnnMassManipulate
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             JavaScript.RequestRegistration(CommonJs.DnnPlugins);
             ClientResourceManager.RegisterScript(Page, "desktopmodules/40fingers/DnnMassManipulate/js/40F-Common.js", FileOrder.Js.jQuery);
 
@@ -64,12 +65,13 @@ namespace FortyFingers.DnnMassManipulate
                     moduleTypes.AddRange(assembly.GetTypes().Where(t => t != baseType && baseType.IsAssignableFrom(t)).ToList());
                     foreach (var moduleType in moduleTypes)
                     {
-                        var mModule = (ManipulatorModuleBase) Reflection.CreateObject(moduleType);
+                        var mModule = (ManipulatorModuleBase)Reflection.CreateObject(moduleType);
                         mModule.Context = new ContextHelper(ModuleConfiguration, UserInfo, PortalSettings);
+
+                        bool.TryParse(this.Settings[$"Tab_{mModule.GetType().Name}"]?.ToString() ?? bool.TrueString, out var enabled);
+                        mModule.Enabled = enabled;
+
                         retval.Modules.Add(mModule);
-                        //var key = $"{providerType.FullName},{assembly.FullName.Split(',')[0]}";
-                        //var providerConfig = GetFile(providerType);
-                        //_instances.Add(key, providerConfig);
                     }
                 }
                 catch
@@ -77,8 +79,16 @@ namespace FortyFingers.DnnMassManipulate
                 }
             }
 
-            retval.Modules = retval.Modules.OrderBy(m => m.TabName()).ToList();
+            // Place any module with TabName() == "Settings" at the end; otherwise order by TabName()
+            retval.Modules = retval.Modules
+                .OrderBy(m => string.Equals(m.TabName(), "Settings", StringComparison.OrdinalIgnoreCase) ? 1 : 0)
+                .ThenBy(m => m.TabName())
+                .ToList();
 
+            // the last one should be the settings module now
+            var settingsModule = retval.Modules.Last() as SettingsModule;
+            settingsModule.Modules = retval.Modules;
+            settingsModule.DnnModuleSettings = this.ModuleContext.Settings;
             return retval;
         }
 
@@ -91,5 +101,6 @@ namespace FortyFingers.DnnMassManipulate
             Modules = new List<ManipulatorModuleBase>();
         }
         public List<ManipulatorModuleBase> Modules { get; set; }
+        public List<ManipulatorModuleBase> EnabledModules => Modules?.Where(m => m.Enabled).ToList();
     }
 }
