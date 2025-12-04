@@ -1,0 +1,61 @@
+﻿@inherits FortyFingers.DnnMassManipulate.Components._40FingersLib.FfRazorViewPageOfT<FortyFingers.DnnMassManipulate.ManipulatorModules.Search.SearchModel>
+@{
+}
+<div class="dnnForm ffmm-Search" id="ffmmSearchForm">
+    <h2>Search</h2>
+    <fieldset>
+        <div class="dnnFormItem">
+            <label class="dnnLabel">Search Input</label>
+            <input type="text" name="SearchInput" class="dnnFormInput" maxlength="100" value="" />
+        </div>
+        <div class="dnnFormItem">
+            <div class="dnnLabel">
+                <label class="dnnLabel">Search Tags (1 per line)</label>
+                <br />(Will match documents with all search tags)
+            </div>
+            <textarea rows="3" name="SearchTags" class="dnnFormInput" value=""></textarea>
+        </div>
+        <div class="dnnFormItem">
+            <label class="dnnLabel">Page Size</label>
+            <input type="number" name="PageSize" class="dnnFormInput" maxlength="10" value="10" />
+        </div>
+        <div class="dnnFormItem">
+            <div class="dnnLabel">
+                <label class="dnnLabel">Page Index</label>
+                <br />(0 is invalid: first page has index 1)
+            </div>
+            <input type="number" name="PageIndex" class="dnnFormInput" maxlength="10" value="1" />
+        </div>
+    </fieldset>
+    <ul class="dnnActions dnnClear">
+        <li><input type="button" class="dnnPrimaryAction" onclick="doSearch();" value="Do Search" /></li>
+    </ul>
+	
+	<section class="ffmm-logging">
+		<h3>Logging:</h3>
+		<div id="ffmmSearchLog"></div>
+	</section>
+
+</div>
+<script>
+    function doSearch(service) {
+        var service = FF.getService("40FDMM", "Search", @Model.Context.Module.ModuleID, @Model.Context.Portal.ActiveTab.TabID);
+        var postData = {};
+        postData.SearchInput = $("#ffmmSearchForm input[name=SearchInput]").val();
+        postData.SearchTags = $("#ffmmSearchForm textarea[name=SearchTags]").val();
+        postData.PageSize = $("#ffmmSearchForm input[name=PageSize]").val();
+        postData.PageIndex = $("#ffmmSearchForm input[name=PageIndex]").val();
+        $("#ffmmSearchLog").html("Doing search for " + JSON.stringify(postData) + "<br/>");
+        FF.postFormFieldsObject(service,
+            "Do",
+            postData,
+            function(data) {
+                // onDone
+                $("#ffmmSearchLog").append(data);
+            },
+            function(responseText) {
+                // onFail
+                $("#ffmmSearchLog").append(postData.TabName + " failed with message " + responseText + "<br/>");
+            });
+    }
+</script>
