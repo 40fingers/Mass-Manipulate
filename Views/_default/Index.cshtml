@@ -13,12 +13,12 @@
 </strong></div>
 <div class="dnnForm" id="dnnFfmmTabs">
     <ul class="dnnAdminTabNav">
-        @foreach (var module in Model.Modules)
+        @foreach (var module in Model.EnabledModules)
         {
             <li><a href="#@(module.JsName)">@module.TabName()</a></li>
         }
     </ul>
-    @foreach (var module in Model.Modules)
+    @foreach (var module in Model.EnabledModules)
     {
 <div id="@(module.JsName)" class="dnnClear">
     @try

@@ -156,6 +156,10 @@
     <Compile Include="ManipulatorModules\Search\SearchController.cs" />
     <Compile Include="ManipulatorModules\Search\SearchModel.cs" />
     <Compile Include="ManipulatorModules\Search\SearchModule.cs" />
+    <Compile Include="ManipulatorModules\Settings\SettingsController.cs" />
+    <Compile Include="ManipulatorModules\Settings\SettingsPostModel.cs" />
+    <Compile Include="ManipulatorModules\Settings\SettingsModel.cs" />
+    <Compile Include="ManipulatorModules\Settings\SettingsModule.cs" />
     <Compile Include="ManipulatorModules\Users\UsersController.cs" />
     <Compile Include="ManipulatorModules\Users\UsersModel.cs" />
     <Compile Include="ManipulatorModules\Users\UsersModule.cs" />
@@ -214,6 +218,7 @@
     <Content Include="ManipulatorModules\Users\Users.cshtml" />
     <Content Include="ManipulatorModules\DbReplace\DbReplace.cshtml" />
     <Content Include="ManipulatorModules\Search\Search.cshtml" />
+    <Content Include="ManipulatorModules\Settings\Settings.cshtml" />
     <None Include="msbuild\Project.targets" />
     <None Include="packages.config" />
     <Content Include="Views\_default\Index.cshtml" />

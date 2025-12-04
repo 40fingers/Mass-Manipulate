@@ -13,6 +13,7 @@ namespace FortyFingers.DnnMassManipulate.ManipulatorModules.Search
         {
         }
         public ContextHelper Context { get; set; }
+
     }
 
     public class SearchPostModel
