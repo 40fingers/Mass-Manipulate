@@ -15,6 +15,7 @@ namespace FortyFingers.DnnMassManipulate.ManipulatorModules.GenerateTabs
         }
         public ContextHelper Context { get; set; }
         public List<TabInfo> Tabs { get; set; }
+        public string Help { get; set; }
     }
 
     public class GenerateTabsPostModel
