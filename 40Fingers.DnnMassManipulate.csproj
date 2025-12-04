@@ -239,6 +239,12 @@
   <ItemGroup>
     <Content Include="ManipulatorModules\DbReplace\App_LocalResources\DbReplace.resx" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="ManipulatorModules\GenerateTabs\App_LocalResources\GenerateTabs.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ManipulatorModules\Settings\App_LocalResources\Settings.resx" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DotNetNuke.Entities.Users;
+using DotNetNuke.Services.Localization;
 using FortyFingers.DnnMassManipulate.Components;
 using FortyFingers.DnnMassManipulate.Components._40FingersLib;
 using FortyFingers.DnnMassManipulate.ManipulatorModules.Settings;
@@ -40,6 +41,8 @@ namespace FortyFingers.DnnMassManipulate.ManipulatorModules.Search
             string retval;
             var model = new SettingsModel();
             model.Context = Context;
+            model.Help = Localization.GetString("Help.Html",
+                "~\\DesktopModules\\40Fingers\\DnnMassManipulate\\ManipulatorModules\\Settings\\App_LocalResources\\Settings.resx");
 
             foreach (var mModule in Modules.Where(m => m.TabName() != this.TabName()))
             {

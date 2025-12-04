@@ -1,10 +1,20 @@
 ﻿@inherits FortyFingers.DnnMassManipulate.Components._40FingersLib.FfRazorViewPageOfT<FortyFingers.DnnMassManipulate.ManipulatorModules.Settings.SettingsModel>
 @{
 }
+
+<div class="dnnForm ffm-settings-help" id="ffmmSettingsHelp">
+    <h2 class="dnnFormSectionHead"><a href="#">Help</a></h2>
+    <fieldset class="ddnClear">
+        <div class="ffm-tabs-help-content">
+            @Html.Raw(Model.Help)
+        </div>
+    </fieldset>
+</div>
+
 <div class="dnnForm ffmm-Settings" id="ffmmSettingsForm">
-    <h2>Settings</h2>
+    <h2 class="dnnFormSectionHead"><a href="#">Settings</a></h2>
     <fieldset>
-        @foreach(var m in Model.Modules)
+        @foreach (var m in Model.Modules)
         {
             <div class="dnnFormItem">
                 <label class="dnnLabel" for="tab@(m.Key)">@m.Value.Item1</label>
@@ -15,14 +25,19 @@
     <ul class="dnnActions dnnClear">
         <li><input type="button" class="dnnPrimaryAction" onclick="doSave();" value="Save Settings" /></li>
     </ul>
-	
-	<section class="ffmm-logging">
-		<h3>Logging:</h3>
-		<div id="ffmmSettingsLog"></div>
-	</section>
+
+    <section class="ffmm-logging">
+        <h3>Logging:</h3>
+        <div id="ffmmSettingsLog"></div>
+    </section>
 
 </div>
 <script>
+    $(function () {
+        $('#ffmmSettingsHelp').dnnPanels();
+        $('#ffmmSettingsForm').dnnPanels();
+    });
+
     function doSave(service) {
         var svc = FF.getService("40FDMM", "Settings", @Model.Context.Module.ModuleID, @Model.Context.Portal.ActiveTab.TabID);
         var postData = { "Modules": [] };
