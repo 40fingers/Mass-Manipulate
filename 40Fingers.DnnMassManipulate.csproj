@@ -67,7 +67,7 @@
       <HintPath>_external\DotNetNuke.Web.Client.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DotNetNuke.Web.Razor, Version=7.0.5.132, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DotNetNuke.Web.Razor, Version=8.0.4.226, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>_external\DotNetNuke.Web.Razor.dll</HintPath>
       <Private>False</Private>

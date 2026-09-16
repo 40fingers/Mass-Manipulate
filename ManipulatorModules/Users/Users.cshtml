@@ -19,6 +19,9 @@
                 <label class="dnnLabel">Users folders</label>
                 <input type="checkbox" name="UsersFolders" class="dnnFormInput" value="true" />Create folders when generating new users
             </div>
+            <div class="dnnFormItem">
+                <span>For "Delete Users From All Portals": put a comma-separated list of user IDs (e.g. 12, 34, 56) in the "Users Template" box above.</span>
+            </div>
         </fieldset>
         <ul class="dnnActions dnnClear">
             <li><input type="button" class="dnnPrimaryAction" id="ffmmUsersBtnFind" onclick="findUsers();" value="Find Users"/></li>
@@ -26,8 +29,10 @@
             <li><input type="button" class="dnnPrimaryAction" id="ffmmUsersBtnCreate" onclick="generateUsers();" value="Create Users"/></li>
             <li><input type="button" class="dnnPrimaryAction" id="ffmmUsersBtnSoftDel" onclick="deleteUsers(false);" value="Mark Users As Deleted"/></li>
             <li><input type="button" class="dnnPrimaryAction" id="ffmmUsersBtnHardDel" onclick="deleteUsers(true);" value="Remove Users Completely"/></li>
+            <li><input type="button" class="dnnSecondaryAction" id="ffmmUsersBtnAllPortalsDel" onclick="deleteUsersAllPortals();" value="Delete Users From All Portals"/></li>
         </ul>
         <input type="hidden" name="HardDelete" value="false"/>
+        <input type="hidden" name="AllPortalsHardDelete" value="false"/>
         <section class="ffmm-logging">
             <h3>Logging:</h3>
             <div id="ffmmUsersLog"></div>
@@ -130,4 +135,40 @@
                 $("#ffmmUsersLog").html(postData.TabName + " failed with message " + responseText + "<br/>");
             });
     }
-    </script> 
+
+    function deleteUsersAllPortals() {
+        var userIds = $("input[name='UsersInput']").val();
+        if (!/^\s*\d+(\s*,\s*\d+)*\s*$/.test(userIds)) {
+            $("#ffmmUsersLog").html("Please enter a comma-separated list of numeric user IDs in the \"Users Template\" box (e.g. 12, 34, 56).<br/>");
+            return;
+        }
+        if (!confirm("This permanently deletes the listed users from ALL portals they belong to. Continue?")) {
+            return;
+        }
+        $("input[name='AllPortalsHardDelete']").val("true");
+        $("input[name='HardDelete']").val("true");
+        var service = FF.getService("40FDMM", "Users", @Model.Context.Module.ModuleID, @Model.Context.Portal.ActiveTab.TabID);
+        $("#ffmmUsersLog").html("please wait...");
+        var progress = window.setInterval(function() {
+                $("#ffmmUsersLog").append(".");
+            },
+            1000);
+        FF.postForm(service,
+            "DeleteUsers",
+            "#ffmmUsersForm",
+            function(data) {
+                // onDone
+                window.clearInterval(progress);
+                $("input[name='AllPortalsHardDelete']").val("false");
+                $("input[name='HardDelete']").val("false");
+                $("#ffmmUsersLog").html(data);
+            },
+            function(responseText) {
+                // onFail
+                window.clearInterval(progress);
+                $("input[name='AllPortalsHardDelete']").val("false");
+                $("input[name='HardDelete']").val("false");
+                $("#ffmmUsersLog").html(postData.TabName + " failed with message " + responseText + "<br/>");
+            });
+    }
+    </script>

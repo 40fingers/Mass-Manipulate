@@ -21,5 +21,6 @@ namespace FortyFingers.DnnMassManipulate.ManipulatorModules.Users
         public string UsersInput { get; set; }
         public bool UsersFolders { get; set; }
         public bool HardDelete { get; set; }
+        public bool AllPortalsHardDelete { get; set; }
     }
 }
