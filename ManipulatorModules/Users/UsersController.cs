@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Http;
-using DotNetNuke.Common.Utilities;
+﻿using DotNetNuke.Common.Utilities;
+using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Security.Permissions;
@@ -16,6 +8,15 @@ using DotNetNuke.Web.Api;
 using FortyFingers.DnnMassManipulate.Components;
 using FortyFingers.DnnMassManipulate.ManipulatorModules.GenerateTabs;
 using FortyFingers.DnnMassManipulate.ManipulatorModules.Users;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Text.RegularExpressions;
+using System.Web;
+using System.Web.Http;
 
 // Leave the ApiController in this namespace to avoid the need for a custom routemapper
 namespace FortyFingers.DnnMassManipulate.Services
@@ -127,6 +128,14 @@ namespace FortyFingers.DnnMassManipulate.Services
         public HttpResponseMessage DeleteUsers(UsersPostModel model)
         {
             var retval = "";
+
+            if (model.AllPortalsHardDelete == true)
+            {
+                retval = DeleteUserFormAllPortals(model.UsersInput, model.HardDelete) == 1
+                    ? $"Users deleted from all portals: {model.UsersInput}<br />"
+                    : $"Error deleting users from all portals: {model.UsersInput}<br />";
+                return Request.CreateResponse(HttpStatusCode.OK, retval);
+            }
 
             if (model.TemplateType == "REGEX")
             {
@@ -244,6 +253,53 @@ namespace FortyFingers.DnnMassManipulate.Services
             }
             else
                 return (0);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userIdList"></param>
+        /// <param name="hardDelete"></param>
+        /// <returns>0 = error, 1 = removed, -1 = does not exist</returns>
+        public int DeleteUserFormAllPortals(string userIdList, bool hardDelete)
+        {
+            // Permanently removes all users in list
+            // Returns: 0 = error, 1 = removed, -1 = does not exist
+
+
+            foreach (int userId in userIdList
+                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => int.Parse(x.Trim()))
+                .Distinct())
+            {
+                // Get all portal memberships for this user
+                var portals = PortalController.GetPortalsByUser(userId);
+
+                foreach (PortalInfo portal in portals)
+                {
+                    var user = UserController.GetUserById(portal.PortalID, userId);
+
+                    if (user == null)
+                        continue;
+
+                    // Soft-delete (marks the user as deleted in this portal)
+                    UserController.DeleteUser(
+                        ref user,
+                        false, // notify
+                        false  // deleteAdmin
+                    );
+
+                    // Permanently remove the user record for this portal
+                    if (hardDelete)
+                        UserController.RemoveUser(user);
+                }
+            }
+            return(1);
+
+
+
+
         }
 
         private string HandleUsersRegex(string UserRegex, string Mode, int MaxUsers)
